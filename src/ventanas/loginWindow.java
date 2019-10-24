@@ -9,6 +9,8 @@ public class loginWindow extends javax.swing.JFrame {
     public loginWindow() {
         initComponents();                       
         
+        txtUser.requestFocus();
+        
         this.setLocationRelativeTo(null);        
         place_holders();
     }   
@@ -22,11 +24,11 @@ public class loginWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtPass = new javax.swing.JPasswordField();
         btnIniciar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         txtUser = new javax.swing.JTextField();
-        txtPass = new javax.swing.JTextField();
         lblLogo = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
         lblBlanco = new javax.swing.JLabel();
@@ -35,34 +37,60 @@ public class loginWindow extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnIniciar.setText("jButton1");
-        getContentPane().add(btnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 280, -1));
+        txtPass.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        txtPass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 280, 40));
 
-        btnSalir.setText("jButton2");
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
+        btnIniciar.setBackground(new java.awt.Color(56, 150, 201));
+        btnIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 16)); // NOI18N
+        btnIniciar.setForeground(new java.awt.Color(72, 86, 97));
+        btnIniciar.setText("Ingresar");
+        btnIniciar.setBorderPainted(false);
+        getContentPane().add(btnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 280, 30));
 
-        btnRegistrar.setText("jButton1");
-        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 280, -1));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gnome_session_logout.png"))); // NOI18N
+        btnSalir.setBorder(null);
+        btnSalir.setBorderPainted(false);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 70, 70));
+
+        btnRegistrar.setBackground(new java.awt.Color(144, 204, 232));
+        btnRegistrar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 16)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(72, 86, 97));
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.setBorderPainted(false);
+        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 280, 30));
 
         txtUser.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        txtUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         getContentPane().add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 280, 40));
-
-        txtPass.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 18)); // NOI18N
-        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 280, 40));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDD.png"))); // NOI18N
         lblLogo.setText("jLabel2");
         getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 380, 110));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.jpg"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, -1));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, 0, 270, -1));
 
+        lblBlanco.setBackground(new java.awt.Color(255, 255, 255));
+        lblBlanco.setForeground(new java.awt.Color(72, 86, 97));
         lblBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/white.jpg"))); // NOI18N
+        lblBlanco.setOpaque(true);
         getContentPane().add(lblBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 440, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -102,7 +130,7 @@ public class loginWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lblBlanco;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JTextField txtPass;
+    private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

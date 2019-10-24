@@ -25,14 +25,14 @@ public class registroWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSalir = new javax.swing.JButton();
         lblForm = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         lblError = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnIniciar = new javax.swing.JButton();
-        lblLogo = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
         lblBlanco = new javax.swing.JLabel();
 
@@ -40,24 +40,15 @@ public class registroWindow extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gnome_session_logout.png"))); // NOI18N
-        btnSalir.setBorder(null);
-        btnSalir.setBorderPainted(false);
-        btnSalir.setContentAreaFilled(false);
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 70, 60));
-
         lblForm.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
         lblForm.setForeground(new java.awt.Color(72, 86, 97));
         lblForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblForm.setText("Registrar Usuario");
         lblForm.setToolTipText("");
         getContentPane().add(lblForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 210, 30));
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDDRed.png"))); // NOI18N
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 150, 70));
 
         txtUser.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
         txtUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -75,7 +66,7 @@ public class registroWindow extends javax.swing.JFrame {
         btnRegistrar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 16)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(72, 86, 97));
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setBorderPainted(false);
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -87,7 +78,7 @@ public class registroWindow extends javax.swing.JFrame {
         btnIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 16)); // NOI18N
         btnIniciar.setForeground(new java.awt.Color(72, 86, 97));
         btnIniciar.setText("Ingresar");
-        btnIniciar.setBorderPainted(false);
+        btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarActionPerformed(evt);
@@ -95,9 +86,17 @@ public class registroWindow extends javax.swing.JFrame {
         });
         getContentPane().add(btnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 280, 30));
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDD.png"))); // NOI18N
-        lblLogo.setText("jLabel2");
-        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, 340, 380, 110));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gnome_session_logout.png"))); // NOI18N
+        btnSalir.setBorder(null);
+        btnSalir.setBorderPainted(false);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 40, 40));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.jpg"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, 0, 290, -1));
@@ -110,10 +109,6 @@ public class registroWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         loginWindow login = new loginWindow();
@@ -134,6 +129,10 @@ public class registroWindow extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments

@@ -9,15 +9,15 @@ public class loginWindow extends javax.swing.JFrame {
     public loginWindow() {
         initComponents();                       
         
-        txtUser.requestFocus();
+        btnIniciar.requestFocus();
         
         this.setLocationRelativeTo(null);        
         place_holders();
     }   
     
     public void place_holders(){
-        holder = new PlaceHolder(txtUser, "Usuario");
-        holder = new PlaceHolder(txtPass, "Contraseña");
+        holder = new PlaceHolder(txtUser, "Ingresar Usuario");
+        holder = new PlaceHolder(txtPass, "Ingresar Contraseña");
     }
 
     @SuppressWarnings("unchecked")
@@ -25,11 +25,13 @@ public class loginWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         txtPass = new javax.swing.JPasswordField();
-        btnIniciar = new javax.swing.JButton();
+        lblLogo = new javax.swing.JLabel();
+        lblForm = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
+        btnIniciar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         txtUser = new javax.swing.JTextField();
-        lblLogo = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
         lblBlanco = new javax.swing.JLabel();
 
@@ -39,14 +41,18 @@ public class loginWindow extends javax.swing.JFrame {
 
         txtPass.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
         txtPass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 280, 40));
+        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 280, 40));
 
-        btnIniciar.setBackground(new java.awt.Color(56, 150, 201));
-        btnIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 16)); // NOI18N
-        btnIniciar.setForeground(new java.awt.Color(72, 86, 97));
-        btnIniciar.setText("Ingresar");
-        btnIniciar.setBorderPainted(false);
-        getContentPane().add(btnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 280, 30));
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDD.png"))); // NOI18N
+        lblLogo.setText("jLabel2");
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 380, 110));
+
+        lblForm.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
+        lblForm.setForeground(new java.awt.Color(72, 86, 97));
+        lblForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblForm.setText("Iniciar Sesión");
+        lblForm.setToolTipText("");
+        getContentPane().add(lblForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 210, 30));
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gnome_session_logout.png"))); // NOI18N
         btnSalir.setBorder(null);
@@ -58,34 +64,72 @@ public class loginWindow extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 70, 70));
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 70, 60));
+
+        lblError.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lblError.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 280, -1));
+
+        btnIniciar.setBackground(new java.awt.Color(56, 150, 201));
+        btnIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 16)); // NOI18N
+        btnIniciar.setForeground(new java.awt.Color(72, 86, 97));
+        btnIniciar.setText("Ingresar");
+        btnIniciar.setBorderPainted(false);
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 280, 30));
 
         btnRegistrar.setBackground(new java.awt.Color(144, 204, 232));
         btnRegistrar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 16)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(72, 86, 97));
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorderPainted(false);
-        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 280, 30));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 280, 30));
 
         txtUser.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
         txtUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 280, 40));
-
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDD.png"))); // NOI18N
-        lblLogo.setText("jLabel2");
-        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 380, 110));
+        getContentPane().add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 280, 40));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.jpg"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, 0, 270, -1));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, 0, 290, -1));
 
         lblBlanco.setBackground(new java.awt.Color(255, 255, 255));
         lblBlanco.setForeground(new java.awt.Color(72, 86, 97));
         lblBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/white.jpg"))); // NOI18N
         lblBlanco.setOpaque(true);
-        getContentPane().add(lblBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 440, 450));
+        getContentPane().add(lblBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 410, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        String usuario = new String();
+        String password = new String();
+        
+        usuario = txtUser.getText();
+        password = txtPass.getText();
+        
+        if (usuario.equals("") || password.equals("") || usuario.equals("Ingresar Usuario") || password.equals("Ingresar Contraseña")){
+            lblError.setText("*No has llenado todos los campos.");
+        }else{
+            
+        }
+        
+    }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        registroWindow registro = new registroWindow();
+        registro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
@@ -128,7 +172,9 @@ public class loginWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel lblBlanco;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JLabel lblForm;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;

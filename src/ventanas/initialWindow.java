@@ -59,18 +59,22 @@ public class initialWindow extends javax.swing.JFrame {
         btnCrearArchivo.setBackground(new java.awt.Color(56, 150, 210));
         btnCrearArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnCrearArchivo.setText("Crear");
+        btnCrearArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnModificarArchivo.setBackground(new java.awt.Color(56, 150, 210));
         btnModificarArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnModificarArchivo.setText("Modificar");
+        btnModificarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnEliminarArchivo.setBackground(new java.awt.Color(56, 150, 210));
         btnEliminarArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnEliminarArchivo.setText("Eliminar");
+        btnEliminarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnSubirArchivo.setBackground(new java.awt.Color(56, 150, 210));
         btnSubirArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnSubirArchivo.setText("Subir");
+        btnSubirArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -106,18 +110,22 @@ public class initialWindow extends javax.swing.JFrame {
         btnCrearCarpeta.setBackground(new java.awt.Color(56, 150, 201));
         btnCrearCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnCrearCarpeta.setText("Crear");
+        btnCrearCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnModificarCarpeta.setBackground(new java.awt.Color(56, 150, 201));
         btnModificarCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnModificarCarpeta.setText("Modificar");
+        btnModificarCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnEliminarCarpeta.setBackground(new java.awt.Color(56, 150, 201));
         btnEliminarCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnEliminarCarpeta.setText("Eliminar");
+        btnEliminarCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnSubirCarpeta.setBackground(new java.awt.Color(56, 150, 201));
         btnSubirCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnSubirCarpeta.setText("Subir");
+        btnSubirCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

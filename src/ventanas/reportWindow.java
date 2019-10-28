@@ -1,16 +1,12 @@
 
 package ventanas;
 
-import javax.swing.ImageIcon;
-
 public class reportWindow extends javax.swing.JFrame {
 
-    public static ImageIcon imageReport;
+    
     
     public reportWindow() {
         initComponents();
-
-        lblVisor.setIcon(imageReport);
         
         this.setLocationRelativeTo(null);
     }
@@ -91,6 +87,6 @@ public class reportWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JLabel lblVisor;
+    public javax.swing.JLabel lblVisor;
     // End of variables declaration//GEN-END:variables
 }

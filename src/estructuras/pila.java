@@ -113,9 +113,9 @@ public class pila {
 
             ruta = ruta + "\\Bitacora.png";
             reportWindow showReport = new reportWindow();
-            reportWindow.imageReport = new ImageIcon(getClass().getResource(ruta));
+            ImageIcon imageReport = new ImageIcon(ruta);
+            showReport.lblVisor.setIcon(imageReport);
             showReport.setVisible(true);
-
         }
     }
 }

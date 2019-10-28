@@ -1,2 +1,2 @@
-cd C:\Users\Luis Fer\Desktop\Reports
+cd C:\Users\luara\Desktop\Reports
 dot -Tpng Bitacora.dot -o Bitacora.png

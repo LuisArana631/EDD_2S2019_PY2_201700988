@@ -92,31 +92,26 @@ public class pila {
 
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora.", "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
-            }
+            }           
+           
+            String rutaPng = ruta + "\\Bitacora.png";
+            crearImagen(rutaImg, rutaPng);            
             
-            String cmd = "comando.cmd";
-            
-            File comando = new File(cmd);
-            if (!comando.exists()) {
-                comando.createNewFile();
-            }
-            try (PrintWriter write = new PrintWriter(cmd, "UTF-8")) {
-                write.println("param([switch]$Elevated) function Test-Admin { $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent()) $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator) } if ((Test-Admin) -eq $false) { if ($elevated) { # tried to elevate, did not work, aborting } else { Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -file \"{0}\" -elevated' -f ($myinvocation.MyCommand.Definition)) } exit } 'running with full privileges'");
-                write.println("cd " + ruta);
-                write.println("dot -Tpng Bitacora.dot -o Bitacora.png");
-            }            
-
-            try {                                
-                Runtime.getRuntime().exec(cmd);                
-            } catch (IOException e) {
-                System.out.println (e);
-            }
-
-            ruta = ruta + "\\Bitacora.png";
             reportWindow showReport = new reportWindow();
-            ImageIcon imageReport = new ImageIcon(ruta);
+            ImageIcon imageReport = new ImageIcon(rutaPng);
             showReport.lblVisor.setIcon(imageReport);
+            showReport.repaint();
             showReport.setVisible(true);
+        }
+    }
+    
+    public void crearImagen(String dirDot, String dirPng){
+        try{
+            ProcessBuilder pbuild = new ProcessBuilder("dot", "-Tpng", "-o", dirPng, dirDot);            
+            pbuild.redirectErrorStream(true);
+            pbuild.start();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora.", "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

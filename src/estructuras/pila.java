@@ -8,9 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import ventanas.reportWindow;
+import ventanas.viewWindow;
 
 public class pila {
 
@@ -24,7 +23,7 @@ public class pila {
 
     public void push(String user, String operation) {
         this.longitud++;
-        
+
         Date datePull = new Date();
         DateFormat dateHour = new SimpleDateFormat("HH:mm:ss dd/MM/yy");
         String date = dateHour.format(datePull);
@@ -98,25 +97,67 @@ public class pila {
 
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
-            }           
-           
+            }
+
             String rutaPng = ruta + "\\Bitacora.png";
-            crearImagen(rutaImg, rutaPng);      
+            crearImagen(rutaImg, rutaPng);
+
+            //Crear archivo HTML para poder abrirla desde la app en tiempo correcto
+            String htmlBitacora = ruta + "\\Bitacora.html";
+            File reporteHtml = new File(htmlBitacora);
+
+            //Verificar que exista el archivo
+            if (!reporteHtml.exists()) {
+                reporteHtml.createNewFile();
+            }
+
+            //Escribir el código html dentro del archivo 
+            try {
+                //Cambiar el slash para poder cargar imagen al html
+                String rutaHtml = "";                                
+                for (int n = rutaPng.length() - 1; n >= 0; n--) {
+                    char c = rutaPng.charAt(n); 
+                    if(c == 47){
+                        rutaHtml = "/" +  rutaHtml;                        
+                    }else{
+                        rutaHtml = c + rutaHtml;
+                    }                    
+                }
+                //Iniciar método printWriter para escribir o capturar error
+                try (PrintWriter write = new PrintWriter(htmlBitacora, "UTF-8")) {
+                    write.println("<html>");
+                    write.println("<head>");
+                    write.println("<title> Reporte Bitacora</title>");
+                    write.println("</head>");
+                    write.println("<body>");                    
+                    write.println("<img src=\"Bitacora.png\">");
+                    write.println("</body>");
+                    write.println("</html>");                    
+                }
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
+            }
             
-            reportWindow showReport = new reportWindow();
-            ImageIcon imageReport = new ImageIcon(rutaPng);
-            showReport.lblVisor.setIcon(imageReport);            
-            showReport.setVisible(true);
-            showReport.repaint();
+            //Abrir visor Web con la página creada del reporte
+            viewWindow visorHtml = new viewWindow();
+            File rec = new File(htmlBitacora);
+            try {
+                visorHtml.edPaneWeb.setPage(rec.toURI().toURL());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
+            }
+
+            visorHtml.setVisible(true);
+
         }
     }
-    
-    public void crearImagen(String dirDot, String dirPng){
-        try{
-            ProcessBuilder pbuild = new ProcessBuilder("dot", "-Tpng", "-o", dirPng, dirDot);            
+
+    public void crearImagen(String dirDot, String dirPng) {
+        try {
+            ProcessBuilder pbuild = new ProcessBuilder("dot", "-Tpng", "-o", dirPng, dirDot);
             pbuild.redirectErrorStream(true);
             pbuild.start();
-        }catch(IOException e){
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
         }
     }

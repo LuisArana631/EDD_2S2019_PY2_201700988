@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import ventanas.reportWindow;
@@ -19,9 +22,12 @@ public class pila {
         return this.inicio == null;
     }
 
-    public void push(String user, String operation, String date) {
+    public void push(String user, String operation) {
         this.longitud++;
-
+        
+        Date datePull = new Date();
+        DateFormat dateHour = new SimpleDateFormat("HH:mm:ss dd/MM/yy");
+        String date = dateHour.format(datePull);
         nodoPila nuevo = new nodoPila(user, date, operation);
 
         if (this.empty() == false) {
@@ -91,17 +97,17 @@ public class pila {
                 }
 
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
-                JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora.", "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
             }           
            
             String rutaPng = ruta + "\\Bitacora.png";
-            crearImagen(rutaImg, rutaPng);            
+            crearImagen(rutaImg, rutaPng);      
             
             reportWindow showReport = new reportWindow();
             ImageIcon imageReport = new ImageIcon(rutaPng);
-            showReport.lblVisor.setIcon(imageReport);
-            showReport.repaint();
+            showReport.lblVisor.setIcon(imageReport);            
             showReport.setVisible(true);
+            showReport.repaint();
         }
     }
     
@@ -110,8 +116,8 @@ public class pila {
             ProcessBuilder pbuild = new ProcessBuilder("dot", "-Tpng", "-o", dirPng, dirDot);            
             pbuild.redirectErrorStream(true);
             pbuild.start();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora.", "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

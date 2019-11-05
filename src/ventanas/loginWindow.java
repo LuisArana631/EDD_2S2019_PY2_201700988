@@ -54,10 +54,9 @@ public class loginWindow extends javax.swing.JFrame {
         getContentPane().add(lblForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 210, 30));
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gnome_session_logout.png"))); // NOI18N
-        btnSalir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSalir.setBorderPainted(false);
         btnSalir.setContentAreaFilled(false);
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -73,7 +72,7 @@ public class loginWindow extends javax.swing.JFrame {
         btnIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 16)); // NOI18N
         btnIniciar.setForeground(new java.awt.Color(72, 86, 97));
         btnIniciar.setText("Ingresar");
-        btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarActionPerformed(evt);
@@ -85,7 +84,7 @@ public class loginWindow extends javax.swing.JFrame {
         btnRegistrar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 16)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(72, 86, 97));
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -106,7 +105,8 @@ public class loginWindow extends javax.swing.JFrame {
         lblBlanco.setOpaque(true);
         getContentPane().add(lblBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 410, 450));
 
-        pack();
+        setSize(new java.awt.Dimension(601, 452));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed

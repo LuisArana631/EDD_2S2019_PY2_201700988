@@ -21,14 +21,14 @@ public class SoftwareEDDDriver {
        bitacora.push("Melani", "asfasf");       
        //bitacora.graficar();
        
-       usuarios.insertHash("Luis", "0123", 0);
-       usuarios.insertHash("wqrwqr", "0123", 0);
-       usuarios.insertHash("asfasf", "01234", 2);
-       usuarios.insertHash("leighbunbun", "01234", 4);
-       usuarios.insertHash("asfasf2", "01234", 3);
-       usuarios.insertHash("Samael", "asfasf", 0);
-       //usuarios.insertHash("FAsfa", "asfasf", 45);
-       //usuarios.insertHash("Asfasfasfasfa", "asfasf", 45);
+       usuarios.insertHash("HolaMundo", "HolaMundo");
+       usuarios.insertHash("wqrwqr", "0123");
+       usuarios.insertHash("asfasf", "01234");
+       usuarios.insertHash("leighbunbun", "01234");
+       usuarios.insertHash("asfasf2", "01234");
+       usuarios.insertHash("Samael", "asfasf");
+       //usuarios.insertHash("FAsfa", "asfasf");
+       //usuarios.insertHash("Asfasfasfasfa", "asfasf");
        
             
        

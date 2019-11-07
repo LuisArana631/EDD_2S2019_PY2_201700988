@@ -24,8 +24,8 @@ public class tablaHash {
         return (valUser % this.longitud) + (intento * intento);
     }
 
-    public void insertHash(String user, String password, int userVal) {
-        nodoHash nuevo = new nodoHash(user, password, userVal);
+    public void insertHash(String user, String password) {
+        nodoHash nuevo = new nodoHash(user, password);
         this.cantidad++;
         insertarHash(nuevo.getUserI(), nuevo);        
     }

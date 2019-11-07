@@ -1,5 +1,8 @@
 package estructuras;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class nodoHash {
 
     private int userI;
@@ -7,12 +10,44 @@ public class nodoHash {
     private String password;
     private listaDobleCarpeta carpetas;
 
-    nodoHash(String userS, String password, int userI) {
+    nodoHash(String userS, String password) {
         this.userS = userS;
         this.carpetas = new listaDobleCarpeta();        
-        this.userI = userI;
+        //Codificar user
+        this.userI = codificarUser(userS);
         //Encriptar Contraseña
-        this.password = password;
+        this.password = encriptarContraseña(password);
+    }
+    
+    private String encriptarContraseña(String password){
+        MessageDigest md = null;
+        
+        try{
+            md = MessageDigest.getInstance("SHA-256");            
+        }catch(NoSuchAlgorithmException e){
+            
+        }
+        
+        byte[] hash = md.digest(password.getBytes());
+        StringBuilder bf =new StringBuilder();
+        
+        for(byte b : hash){
+            bf.append(String.format("%02x",b));
+        }
+        
+        return bf.toString();
+    }
+    
+    private int codificarUser(String user){
+        int codigo = 0;
+        
+        for(int i = 0; i < user.length(); i++){
+            char caracter = user.charAt(i);
+            
+            codigo += caracter;
+        }
+        
+        return codigo;
     }
 
     public listaDobleCarpeta getCarpetas() {

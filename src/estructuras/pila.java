@@ -14,7 +14,6 @@ import ventanas.viewWindow;
 public class pila {
 
     private nodoPila inicio;
-    private nodoPila fin;
     private int longitud = 0;
 
     public Boolean empty() {
@@ -33,8 +32,7 @@ public class pila {
             nuevo.setNext(this.inicio);
             this.inicio = nuevo;
         } else {
-            this.inicio = nuevo;
-            this.fin = nuevo;
+            this.inicio = nuevo;            
         }
     }
 

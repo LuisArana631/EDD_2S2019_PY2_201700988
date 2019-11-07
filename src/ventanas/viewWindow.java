@@ -7,6 +7,7 @@ public class viewWindow extends javax.swing.JFrame {
         initComponents();
         
         this.edPaneWeb.setEditable(false);
+        this.edPaneWeb.setContentType("text/html");
         this.setLocationRelativeTo(null);
     }
 

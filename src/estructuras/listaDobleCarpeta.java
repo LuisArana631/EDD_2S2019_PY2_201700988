@@ -5,7 +5,7 @@ public class listaDobleCarpeta {
     private nodoCarpeta inicio;
     private nodoCarpeta fin;
 
-    listaDobleCarpeta() {
+    public listaDobleCarpeta() {
         this.inicio = null;
         this.fin = null;
     }

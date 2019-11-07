@@ -64,7 +64,7 @@ public class pila {
 
             try {
                 try (PrintWriter write = new PrintWriter(rutaImg, "UTF-8")) {
-                    write.println("digraph punteo {");
+                    write.println("digraph bitacora {");
                     write.println("label=\"Bitácora\";");
                     write.println("graph [fontsize=25 fontname=\"Verdana\" compound=true];");
                     write.println("node [shape=record fontsize=25 fontname=\"Verdana\"];");
@@ -93,8 +93,8 @@ public class pila {
                     }
 
                     write.print("}\"];}");
+                    write.close();
                 }
-
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
             }
@@ -113,31 +113,21 @@ public class pila {
 
             //Escribir el código html dentro del archivo 
             try {
-                //Cambiar el slash para poder cargar imagen al html
-                String rutaHtml = "";                                
-                for (int n = rutaPng.length() - 1; n >= 0; n--) {
-                    char c = rutaPng.charAt(n); 
-                    if(c == 47){
-                        rutaHtml = "/" +  rutaHtml;                        
-                    }else{
-                        rutaHtml = c + rutaHtml;
-                    }                    
-                }
                 //Iniciar método printWriter para escribir o capturar error
                 try (PrintWriter write = new PrintWriter(htmlBitacora, "UTF-8")) {
                     write.println("<html>");
                     write.println("<head>");
                     write.println("<title> Reporte Bitacora</title>");
                     write.println("</head>");
-                    write.println("<body>");                    
+                    write.println("<body>");
                     write.println("<img src=\"Bitacora.png\">");
                     write.println("</body>");
-                    write.println("</html>");                    
+                    write.println("</html>");
                 }
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
             }
-            
+
             //Abrir visor Web con la página creada del reporte
             viewWindow visorHtml = new viewWindow();
             File rec = new File(htmlBitacora);
@@ -152,7 +142,7 @@ public class pila {
         }
     }
 
-    public void crearImagen(String dirDot, String dirPng) {
+    private void crearImagen(String dirDot, String dirPng) {
         try {
             ProcessBuilder pbuild = new ProcessBuilder("dot", "-Tpng", "-o", dirPng, dirDot);
             pbuild.redirectErrorStream(true);

@@ -27,13 +27,7 @@ public class tablaHash {
     public void insertHash(String user, String password, int userVal) {
         nodoHash nuevo = new nodoHash(user, password, userVal);
         this.cantidad++;
-        insertarHash(nuevo.getUserI(), nuevo);
-        float val = this.cantidad / this.longitud;
-        System.out.println("Ingresando :" + user);
-        System.out.println("Cantidad actual: " + this.cantidad);
-        System.out.println("Tamaño actual: " + this.longitud);
-        System.out.println("Desbordamiento: " + desbordamiento() + " con valor: " + val);
-        System.out.println("--------------------");
+        insertarHash(nuevo.getUserI(), nuevo);        
     }
 
     private void insertarHash(int valUser, nodoHash nuevo) {        
@@ -73,7 +67,7 @@ public class tablaHash {
     }
 
     private boolean desbordamiento() {
-        return this.cantidad / this.longitud > 0.75;
+        return (double)((double)this.cantidad / (double)this.longitud) > 0.75;
     }
 
     private void redimensionar() {

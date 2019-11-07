@@ -27,7 +27,7 @@ public class SoftwareEDDDriver {
        usuarios.insertHash("leighbunbun", "01234", 4);
        usuarios.insertHash("asfasf2", "01234", 3);
        usuarios.insertHash("Samael", "asfasf", 0);
-       usuarios.insertHash("FAsfa", "asfasf", 45);
+       //usuarios.insertHash("FAsfa", "asfasf", 45);
        //usuarios.insertHash("Asfasfasfasfa", "asfasf", 45);
        
             

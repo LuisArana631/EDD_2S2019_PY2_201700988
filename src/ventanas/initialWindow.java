@@ -55,6 +55,11 @@ public class initialWindow extends javax.swing.JFrame {
         btnAdmin.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btnAdmin.setText("Funciones Administrador");
         btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 256, -1));
 
         btnCrearCarpeta2.setBackground(new java.awt.Color(56, 150, 201));
@@ -66,7 +71,7 @@ public class initialWindow extends javax.swing.JFrame {
                 btnCrearCarpeta2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCrearCarpeta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 256, -1));
+        getContentPane().add(btnCrearCarpeta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, -1));
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoutcloud.png"))); // NOI18N
         btnSalir.setBorder(null);
@@ -219,11 +224,20 @@ public class initialWindow extends javax.swing.JFrame {
     private void btnCrearCarpeta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCarpeta2ActionPerformed
         try {
             SoftwareEDDDriver.bitacora.graficar();
-            SoftwareEDDDriver.usuarios.graficar();
+            
         } catch (IOException ex) {
             Logger.getLogger(initialWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCrearCarpeta2ActionPerformed
+
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+        try {
+            
+            SoftwareEDDDriver.usuarios.graficar();
+        } catch (IOException ex) {
+            Logger.getLogger(initialWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdminActionPerformed
 
     /**
      * @param args the command line arguments

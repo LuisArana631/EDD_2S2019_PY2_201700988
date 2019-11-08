@@ -161,7 +161,7 @@ public class tablaHash {
                 archivo.createNewFile();
             }
 
-            try (PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
                 write.println("digraph usuarios {");
                 write.println("label=\"Usuarios\";");
                 write.println("graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];");
@@ -191,7 +191,7 @@ public class tablaHash {
             }
 
             try {
-                try (PrintWriter write = new PrintWriter(htmlUsuarios, "UTF-8")) {
+                try ( PrintWriter write = new PrintWriter(htmlUsuarios, "UTF-8")) {
                     write.println("<html>");
                     write.println("<head>");
                     write.println("<title> Reporte Usuarios </title>");
@@ -269,18 +269,20 @@ public class tablaHash {
 
         return codigo;
     }
-    
-    public boolean usuarioExiste(String user){
+
+    public boolean usuarioExiste(String user) {
+        System.out.println("Empezando verificacion.");
         int userVerificar = codificarUser(user);
         int intento = 0;
-        int indice  = funcionH(userVerificar, intento);
+        int indice = funcionH(userVerificar, intento);
         int indiceTemp = indice;
-        
+
         do {
-            if (this.usuarios[indice] != null) {                
-                if (this.usuarios[indice].getUserS().equals(user)) {                    
+            System.out.println("Estamos en el while 1 con indice: " + indice + " y con indiceTemp: " + indiceTemp + " con " + user);
+            if (this.usuarios[indice] != null) {
+                if (this.usuarios[indice].getUserS().equals(user)) {
                     //Si encontramos al usuario
-                    return true;                                   
+                    return true;
                 } else {
                     intento++;
                     indice = funcionH(userVerificar, intento);
@@ -289,26 +291,31 @@ public class tablaHash {
                         indice = indice - this.longitud;
                     }
                 }
+            } else {
+                return false;
             }
         } while (indice != indiceTemp);
 
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
-            while (!this.usuarios[indice].getUserS().equals(user) || this.usuarios[indice]!=null) {
-                indice++;
-                while (indice >= this.longitud) {
-                    indice = indice - this.longitud;
-                }
-                if (recorrido < this.longitud) {
-                    recorrido++;
-                } else {
-                    return false;
+            if (this.usuarios[indice] != null) {
+                while (!this.usuarios[indice].getUserS().equals(user)) {
+                    System.out.println("Estamos en el while 2 con indice: " + indice + " y con indiceTemp: " + indiceTemp + " con " + user);
+                    indice++;
+                    while (indice >= this.longitud) {
+                        indice = indice - this.longitud;
+                    }
+                    if (recorrido < this.longitud) {
+                        recorrido++;
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
-                
-        return this.usuarios[indice]!=null;
+
+        return this.usuarios[indice] != null;
     }
 
     public boolean verificarCredenciales(String user, String password) {
@@ -332,29 +339,34 @@ public class tablaHash {
                         indiceBuscar = indiceBuscar - this.longitud;
                     }
                 }
+            } else {
+                return false;
             }
         } while (indiceBuscar != indiceTemp);
 
         int recorrido = 0;
 
         if (indiceBuscar == indiceTemp && intento > 0) {
-            while (!this.usuarios[indiceBuscar].getUserS().equals(user) || this.usuarios[indiceBuscar]!=null) {
-                indiceBuscar++;
-                while (indiceBuscar >= this.longitud) {
-                    indiceBuscar = indiceBuscar - this.longitud;
-                }
-                if (recorrido < this.longitud) {
-                    recorrido++;
-                } else {
-                    return false;
+            if (this.usuarios[indiceBuscar] != null) {
+                while (!this.usuarios[indiceBuscar].getUserS().equals(user)) {
+                    indiceBuscar++;
+                    while (indiceBuscar >= this.longitud) {
+                        indiceBuscar = indiceBuscar - this.longitud;
+                    }
+                    if (recorrido < this.longitud) {
+                        recorrido++;
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
 
-        if (this.usuarios[indiceBuscar]!=null)
+        if (this.usuarios[indiceBuscar] != null) {
             return this.usuarios[indiceBuscar].getPassword().equals(passVerificar);
-        else
+        } else {
             return false;
+        }
     }
 
 }

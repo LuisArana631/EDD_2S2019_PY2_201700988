@@ -1,21 +1,22 @@
-
 package ventanas;
 
 import com.placeholder.PlaceHolder;
+import software.edd.driver.SoftwareEDDDriver;
 
 public class loginWindow extends javax.swing.JFrame {
 
     PlaceHolder holder;
+
     public loginWindow() {
-        initComponents();                       
-        
+        initComponents();
+
         btnIniciar.requestFocus();
-        
-        this.setLocationRelativeTo(null);        
+
+        this.setLocationRelativeTo(null);
         place_holders();
-    }   
-    
-    public void place_holders(){
+    }
+
+    public void place_holders() {
         holder = new PlaceHolder(txtUser, "Ingresar Usuario");
         holder = new PlaceHolder(txtPass, "Ingresar Contraseña");
     }
@@ -110,20 +111,35 @@ public class loginWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        String usuario = new String();
-        String password = new String();
-        
+        String usuario;
+        String password;
+
         usuario = txtUser.getText();
         password = txtPass.getText();
-        
-        if (usuario.equals("") || password.equals("") || usuario.equals("Ingresar Usuario") || password.equals("Ingresar Contraseña")){
+
+        if (usuario.equals("") || password.equals("") || usuario.equals("Ingresar Usuario") || password.equals("Ingresar Contraseña")) {
             lblError.setText("*No has llenado todos los campos.");
-        }else{
-            initialWindow inicial = new initialWindow();
-            inicial.setVisible(true);
-            this.setVisible(false);
+        } else {
+            boolean existe = SoftwareEDDDriver.usuarios.verificarCredenciales(usuario, password);
+
+            if (existe) {
+                SoftwareEDDDriver.bitacora.push(usuario, "Iniciar sesión.");
+                initialWindow inicial = new initialWindow();
+                
+                if(usuario.equals("ADMIN")){
+                    inicial.btnAdmin.setVisible(true);
+                }else{
+                    inicial.btnAdmin.setVisible(false);
+                }             
+                
+                inicial.setVisible(true);
+                inicial.lblUser.setText(usuario);
+                this.setVisible(false);
+            } else {
+                lblError.setText("*Credenciales incorrectas.");
+            }
         }
-        
+
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -135,7 +151,7 @@ public class loginWindow extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

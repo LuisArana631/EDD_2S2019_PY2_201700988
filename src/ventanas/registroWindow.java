@@ -2,6 +2,8 @@
 package ventanas;
 
 import com.placeholder.PlaceHolder;
+import javax.swing.JOptionPane;
+import software.edd.driver.SoftwareEDDDriver;
 
 public class registroWindow extends javax.swing.JFrame {
     
@@ -126,7 +128,21 @@ public class registroWindow extends javax.swing.JFrame {
         if (usuario.equals("") || password.equals("") || usuario.equals("Ingresar Usuario") || password.equals("Ingresar Contraseña")){
             lblError.setText("*No has llenado todos los campos.");
         }else{
-            
+            //Verificar que el usuario no exista
+            boolean existe = SoftwareEDDDriver.usuarios.usuarioExiste(usuario);            
+            if(!existe){
+                if(password.length() < 8){
+                    lblError.setText("*Contraseña invalida. Debe contenter 8 caracteres mínimo.");
+                }else{
+                    SoftwareEDDDriver.usuarios.insertHash(usuario,password);
+                    JOptionPane.showMessageDialog(null, "Usuario creado con exito.", usuario+" bienvenido.", JOptionPane.INFORMATION_MESSAGE);
+                    loginWindow login = new loginWindow();
+                    login.setVisible(true);
+                    this.setVisible(false);
+                }
+            }else{
+                lblError.setText("*Usuario ya existe.");
+            }
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

@@ -2,10 +2,9 @@ package ventanas;
 
 public class viewWindow extends javax.swing.JFrame {
 
-    
     public viewWindow() {
         initComponents();
-        
+
         this.edPaneWeb.setEditable(false);
         this.edPaneWeb.setContentType("text/html");
         this.setLocationRelativeTo(null);
@@ -50,8 +49,6 @@ public class viewWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        initialWindow inicio = new initialWindow();
-        inicio.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 

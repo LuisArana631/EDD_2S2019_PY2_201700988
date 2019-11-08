@@ -1,6 +1,12 @@
 
 package ventanas;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingConstants;
+import software.edd.driver.SoftwareEDDDriver;
+
 
 public class initialWindow extends javax.swing.JFrame {
 
@@ -8,6 +14,7 @@ public class initialWindow extends javax.swing.JFrame {
     public initialWindow() {
         initComponents();
         
+        lblUser.setHorizontalAlignment(SwingConstants.CENTER);
         btnCrearCarpeta.requestFocus();
         
         this.setLocationRelativeTo(null);
@@ -42,7 +49,7 @@ public class initialWindow extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUser.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 24)); // NOI18N
-        getContentPane().add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
+        getContentPane().add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 470, 30));
 
         btnAdmin.setBackground(new java.awt.Color(56, 150, 201));
         btnAdmin.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
@@ -74,7 +81,7 @@ public class initialWindow extends javax.swing.JFrame {
         getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 70, 60));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDDRed.png"))); // NOI18N
-        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 60));
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 140, 60));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.lightGray), "Archivos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI Light", 1, 12))); // NOI18N
         jPanel3.setOpaque(false);
@@ -210,7 +217,12 @@ public class initialWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCrearCarpeta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCarpeta2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            SoftwareEDDDriver.bitacora.graficar();
+            SoftwareEDDDriver.usuarios.graficar();
+        } catch (IOException ex) {
+            Logger.getLogger(initialWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCrearCarpeta2ActionPerformed
 
     /**

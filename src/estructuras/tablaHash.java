@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
+import software.edd.driver.SoftwareEDDDriver;
 import ventanas.viewWindow;
 
 public class tablaHash {
@@ -25,20 +28,21 @@ public class tablaHash {
     }
 
     public void insertHash(String user, String password) {
+        SoftwareEDDDriver.bitacora.push(user, "Registrarse.");
         nodoHash nuevo = new nodoHash(user, password);
         this.cantidad++;
-        insertarHash(nuevo.getUserI(), nuevo);        
+        insertarHash(nuevo.getUserI(), nuevo);
     }
 
-    private void insertarHash(int valUser, nodoHash nuevo) {        
-                
+    private void insertarHash(int valUser, nodoHash nuevo) {
+
         int intento = 0;
         int pos = funcionH(valUser, intento);
-        int posTemp = pos;        
-        
+        int posTemp = pos;
+
         do {
             if (this.usuarios[pos] == null) {
-                this.usuarios[pos] = nuevo;                
+                this.usuarios[pos] = nuevo;
                 break;
             } else {
                 intento++;
@@ -57,17 +61,17 @@ public class tablaHash {
                     pos = pos - this.longitud;
                 }
             }
-            this.usuarios[pos] = nuevo;            
+            this.usuarios[pos] = nuevo;
         }
-        
+
         if (desbordamiento()) {
             redimensionar();
         }
-        
+
     }
 
     private boolean desbordamiento() {
-        return (double)((double)this.cantidad / (double)this.longitud) > 0.75;
+        return (double) ((double) this.cantidad / (double) this.longitud) > 0.75;
     }
 
     private void redimensionar() {
@@ -85,7 +89,7 @@ public class tablaHash {
 
                 do {
                     if (nuevaTabla[nuevaPos] == null) {
-                        nuevaTabla[nuevaPos] = this.usuarios[i];                        
+                        nuevaTabla[nuevaPos] = this.usuarios[i];
                         break;
                     } else {
 
@@ -165,7 +169,7 @@ public class tablaHash {
                 write.println("rankdir=LR;");
                 write.println("tablaHash [label=<");
                 write.println("<TABLE border=\"0\" cellborder=\"1\" cellspacing=\"0\">");
-                write.println("<TR><TD>No.</TD><TD>Nombre</TD><TD>Password</TD></TR>");
+                write.println("<TR><TD>No.</TD><TD>Nombre</TD><TD>Password</TD><TD>TimeStamp</TD></TR>");
                 //Metodo para escribir la tabla de usuarios
                 write.println(creartabla());
                 write.println("</TABLE>");
@@ -205,6 +209,7 @@ public class tablaHash {
             File rec = new File(htmlUsuarios);
             try {
                 visorHtml.edPaneWeb.setPage(rec.toURI().toURL());
+                visorHtml.lblNombre.setText("Reporte de Usuarios");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de usuarios." + e, "Error con los usuarios.", JOptionPane.ERROR_MESSAGE);
             }
@@ -216,9 +221,9 @@ public class tablaHash {
         String tabla = "";
         for (int i = 0; i < this.longitud; i++) {
             if (this.usuarios[i] != null) {
-                tabla += "<TR><TD>" + i + "</TD><TD>" + usuarios[i].getUserS() + "</TD><TD>" + usuarios[i].getPassword() + "</TD></TR>\n";
+                tabla += "<TR><TD>" + i + "</TD><TD>" + usuarios[i].getUserS() + "</TD><TD>" + usuarios[i].getPassword() + "</TD><TD>" + usuarios[i].getTimeStamp() + "</TD></TR>\n";
             } else {
-                tabla += "<TR><TD>" + i + "</TD><TD></TD><TD></TD></TR>";
+                tabla += "<TR><TD>" + i + "</TD><TD></TD><TD></TD><TD></TD></TR>";
             }
         }
         return tabla;
@@ -232,6 +237,83 @@ public class tablaHash {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al crear el reporte de usuarios." + e, "Error con los usuarios.", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private String encriptarContraseña(String password) {
+        MessageDigest md = null;
+
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            JOptionPane.showMessageDialog(null, "Error al encriptar contraseña.", "Error con contraseña.", JOptionPane.ERROR_MESSAGE);
+        }
+
+        byte[] hash = md.digest(password.getBytes());
+        StringBuilder bf = new StringBuilder();
+
+        for (byte b : hash) {
+            bf.append(String.format("%02x", b));
+        }
+
+        return bf.toString();
+    }
+
+    private int codificarUser(String user) {
+        int codigo = 0;
+
+        for (int i = 0; i < user.length(); i++) {
+            char caracter = user.charAt(i);
+
+            codigo += caracter;
+        }
+
+        return codigo;
+    }
+
+    public boolean verificarCredenciales(String user, String password) {
+        String passVerificar = encriptarContraseña(password);
+        int userVerificar = codificarUser(user);
+        int intento = 0;
+
+        int indiceBuscar = funcionH(userVerificar, intento);
+        int indiceTemp = indiceBuscar;
+
+        do {
+            if (this.usuarios[indiceBuscar] != null) {
+                if (this.usuarios[indiceBuscar].getUserS().equals(user)) {
+                    //Si encontramos al usuario
+                    return this.usuarios[indiceBuscar].getPassword().equals(passVerificar);
+                } else {
+                    intento++;
+                    indiceBuscar = funcionH(userVerificar, intento);
+
+                    while (indiceBuscar >= this.longitud) {
+                        indiceBuscar = indiceBuscar - this.longitud;
+                    }
+                }
+            }
+        } while (indiceBuscar != indiceTemp);
+
+        int recorrido = 0;
+
+        if (indiceBuscar == indiceTemp && intento > 0) {
+            while (!this.usuarios[indiceBuscar].getUserS().equals(user) || this.usuarios[indiceBuscar]!=null) {
+                indiceBuscar++;
+                while (indiceBuscar >= this.longitud) {
+                    indiceBuscar = indiceBuscar - this.longitud;
+                }
+                if (recorrido < this.longitud) {
+                    recorrido++;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        if (this.usuarios[indiceBuscar]!=null)
+            return this.usuarios[indiceBuscar].getPassword().equals(passVerificar);
+        else
+            return false;
     }
 
 }

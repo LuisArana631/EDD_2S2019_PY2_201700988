@@ -117,8 +117,8 @@ public class registroWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-    String usuario = new String();
-        String password = new String();
+        String usuario;
+        String password;
         
         usuario = txtUser.getText();
         password = txtContraseña.getText();

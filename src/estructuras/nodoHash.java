@@ -2,13 +2,18 @@ package estructuras;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class nodoHash {
 
     private int userI;
     private String userS;
     private String password;
-    private listaDobleCarpeta carpetas;
+    private String timeStamp;
+    private listaDobleCarpeta carpetas;    
 
     nodoHash(String userS, String password) {
         this.userS = userS;
@@ -17,6 +22,12 @@ public class nodoHash {
         this.userI = codificarUser(userS);
         //Encriptar Contraseña
         this.password = encriptarContraseña(password);
+        //Insertar  TimeStamp
+        Date datePull = new Date();
+        DateFormat dateHour =  new SimpleDateFormat("HH:mm:ss dd/MM/yy");
+        String date  = dateHour.format(datePull);
+        
+        this.timeStamp = date;
     }
     
     private String encriptarContraseña(String password){
@@ -25,7 +36,7 @@ public class nodoHash {
         try{
             md = MessageDigest.getInstance("SHA-256");            
         }catch(NoSuchAlgorithmException e){
-            
+            JOptionPane.showMessageDialog(null, "Error al encriptar contraseña.", "Error con contraseña.", JOptionPane.ERROR_MESSAGE);
         }
         
         byte[] hash = md.digest(password.getBytes());
@@ -80,6 +91,14 @@ public class nodoHash {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getTimeStamp(){
+        return this.timeStamp;
+    }
+    
+    public void setTimeStamp(String date){
+        this.timeStamp = date;
     }
 
 }

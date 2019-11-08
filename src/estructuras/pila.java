@@ -32,7 +32,7 @@ public class pila {
             nuevo.setNext(this.inicio);
             this.inicio = nuevo;
         } else {
-            this.inicio = nuevo;            
+            this.inicio = nuevo;
         }
     }
 
@@ -131,6 +131,7 @@ public class pila {
             File rec = new File(htmlBitacora);
             try {
                 visorHtml.edPaneWeb.setPage(rec.toURI().toURL());
+                visorHtml.lblNombre.setText("Reporte de Bitácora");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
             }

@@ -169,7 +169,7 @@ public class tablaHash {
                 write.println("rankdir=LR;");
                 write.println("tablaHash [label=<");
                 write.println("<TABLE border=\"0\" cellborder=\"1\" cellspacing=\"0\">");
-                write.println("<TR><TD>No.</TD><TD>Nombre</TD><TD>Password</TD><TD>TimeStamp</TD></TR>");
+                write.println("<TR><TD>No.</TD><TD>Usuarios</TD><TD>Password</TD><TD>TimeStamp</TD></TR>");
                 //Metodo para escribir la tabla de usuarios
                 write.println(creartabla());
                 write.println("</TABLE>");
@@ -221,7 +221,7 @@ public class tablaHash {
         String tabla = "";
         for (int i = 0; i < this.longitud; i++) {
             if (this.usuarios[i] != null) {
-                tabla += "<TR><TD>" + i + "</TD><TD>" + usuarios[i].getUserS() + "</TD><TD>" + usuarios[i].getPassword() + "</TD><TD>" + usuarios[i].getTimeStamp() + "</TD></TR>\n";
+                tabla += "<TR><TD>" + i + "</TD><TD>" + this.usuarios[i].getUserS() + "</TD><TD>" + this.usuarios[i].getPassword() + "</TD><TD>" + usuarios[i].getTimeStamp() + "</TD></TR>\n";
             } else {
                 tabla += "<TR><TD>" + i + "</TD><TD></TD><TD></TD><TD></TD></TR>";
             }

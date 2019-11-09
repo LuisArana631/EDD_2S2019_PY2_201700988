@@ -5,9 +5,16 @@
  */
 package ventanas;
 
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import software.edd.driver.SoftwareEDDDriver;
 
 /**
@@ -21,7 +28,7 @@ public class administradorWindow extends javax.swing.JFrame {
      */
     public administradorWindow() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
     }
 
@@ -40,6 +47,7 @@ public class administradorWindow extends javax.swing.JFrame {
         btnCargaUsuarios = new javax.swing.JButton();
         btnReporteUsuarios = new javax.swing.JButton();
         btnReporteBitacora = new javax.swing.JButton();
+        btnUsuariosNoAdmitidos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblFondo1 = new javax.swing.JLabel();
 
@@ -48,7 +56,7 @@ public class administradorWindow extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDDRed.png"))); // NOI18N
-        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 150, 70));
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 150, 70));
 
         btnRegresar3.setBackground(new java.awt.Color(56, 150, 201));
         btnRegresar3.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
@@ -98,6 +106,17 @@ public class administradorWindow extends javax.swing.JFrame {
             }
         });
 
+        btnUsuariosNoAdmitidos.setBackground(new java.awt.Color(56, 150, 201));
+        btnUsuariosNoAdmitidos.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnUsuariosNoAdmitidos.setForeground(new java.awt.Color(255, 255, 255));
+        btnUsuariosNoAdmitidos.setText("Reporte de Usuarios Erroneos");
+        btnUsuariosNoAdmitidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuariosNoAdmitidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosNoAdmitidosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -106,8 +125,9 @@ public class administradorWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnReporteUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReporteBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCargaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUsuariosNoAdmitidos, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCargaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReporteBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,24 +138,91 @@ public class administradorWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnReporteUsuarios)
                 .addGap(18, 18, 18)
+                .addComponent(btnUsuariosNoAdmitidos)
+                .addGap(18, 18, 18)
                 .addComponent(btnReporteBitacora)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 290, 190));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 290, 230));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 210, 260));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 210, 290));
 
         lblFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/white.jpg"))); // NOI18N
-        getContentPane().add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 260));
+        getContentPane().add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCargaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaUsuariosActionPerformed
-        
+        //Variables para manejo de usuarios
+        boolean usuario = true;
+        String user = "";
+        String password = "";
+        //Variables para mostrar reporte
+        int registrados = 0;
+        int rechazados = 0;
+
+        JFileChooser buscador = new JFileChooser();
+        buscador.showOpenDialog(buscador);
+
+        try {
+            String ruta = buscador.getSelectedFile().getAbsolutePath();
+            FileInputStream archivoCarga = new FileInputStream(ruta);
+            try (DataInputStream entradaDatos = new DataInputStream(archivoCarga)) {
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(entradaDatos));
+                String linea;
+
+                while ((linea = buffer.readLine()) != null) {
+
+                    //Llenar las variables de user y password por linea
+                    for (int i = 0; i < linea.length(); i++) {
+                        char letra = linea.charAt(i);
+
+                        if (letra == 59 || letra == 44) {
+                            usuario = false;
+                        } else if (usuario == true) {
+                            user += letra;
+                        } else {
+                            password += letra;
+                        }
+                    }
+
+                    //Evaluar el usuario y contraseña a registrar
+                    if (!user.equals("Usuario")) {
+                        //Evaluar que el usuario no exista
+                        boolean existe = SoftwareEDDDriver.usuarios.usuarioExiste(user);
+                        //Si existe el usuario
+                        if (existe == true) {
+                            //Agregar a la lista de usuarios no admitidos
+                            SoftwareEDDDriver.errores.insertar(user, password, "Usuario ya existe.");
+                            rechazados++;
+                        } else //Si no existe el usuario, verificar la contraseña
+                        if (password.length() > 8) {
+                            //Si es mayor a 8 se aprueba y se registra
+                            SoftwareEDDDriver.usuarios.insertHash(user, password);
+                            registrados++;
+                        } else {
+                            //Si no es mayor a 8 no se arpueba
+                            SoftwareEDDDriver.errores.insertar(user, password, "Contraseña menor a 8 caracteres.");
+                            rechazados++;
+                        }
+                    }
+
+                    user = "";
+                    password = "";
+                    usuario = true;
+                }
+
+                JOptionPane.showMessageDialog(null, "Se han registrado: " + registrados + " usuarios.\n Se encontraron: " + rechazados + " usuarios con error.", "Carga de usuarios completa", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (IOException | HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo de carga." + e, "Error con la lectura del archivo.", JOptionPane.ERROR_MESSAGE);
+        }
+
+        SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Carga masiva de usuarios.");
     }//GEN-LAST:event_btnCargaUsuariosActionPerformed
 
     private void btnRegresar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar3ActionPerformed
@@ -160,6 +247,14 @@ public class administradorWindow extends javax.swing.JFrame {
             Logger.getLogger(administradorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnReporteBitacoraActionPerformed
+
+    private void btnUsuariosNoAdmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosNoAdmitidosActionPerformed
+        try {
+            SoftwareEDDDriver.errores.graficar();
+        } catch (IOException ex) {
+            Logger.getLogger(administradorWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnUsuariosNoAdmitidosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,6 +296,7 @@ public class administradorWindow extends javax.swing.JFrame {
     public javax.swing.JButton btnRegresar3;
     public javax.swing.JButton btnReporteBitacora;
     public javax.swing.JButton btnReporteUsuarios;
+    public javax.swing.JButton btnUsuariosNoAdmitidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFondo1;

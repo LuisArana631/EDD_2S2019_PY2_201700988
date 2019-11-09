@@ -29,7 +29,7 @@
     <Component class="javax.swing.JLabel" name="lblUser">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Microsoft YaHei UI Light" size="24" style="0"/>
+          <Font name="Microsoft YaHei UI Light" size="24" style="1"/>
         </Property>
       </Properties>
       <AuxValues>

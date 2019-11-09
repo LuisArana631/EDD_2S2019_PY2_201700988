@@ -140,6 +140,7 @@ public class administradorWindow extends javax.swing.JFrame {
 
     private void btnRegresar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar3ActionPerformed
         initialWindow initial = new initialWindow();
+        initial.lblUser.setText(SoftwareEDDDriver.userLog);
         initial.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresar3ActionPerformed

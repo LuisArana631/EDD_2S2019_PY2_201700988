@@ -48,7 +48,7 @@ public class initialWindow extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblUser.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 24)); // NOI18N
+        lblUser.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
         getContentPane().add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 470, 30));
 
         btnAdmin.setBackground(new java.awt.Color(56, 150, 201));

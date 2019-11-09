@@ -20,6 +20,12 @@ public class listaError {
         this.longitud = 0;
     }
 
+    public void resetLista(){
+        this.inicio = null;
+        this.fin = null;
+        this.longitud = 0;
+    }
+    
     private boolean listaVacia() {
         return this.inicio != null;
     }

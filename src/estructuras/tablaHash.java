@@ -296,23 +296,21 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
-            if (this.usuarios[indice] != null) {
-                while (!this.usuarios[indice].getUserS().equals(user)) {
-                    indice++;
-                    while (indice >= this.longitud) {
-                        indice = indice - this.longitud;
-                    }
-                    if (recorrido < this.longitud) {
-                        recorrido++;
-                    } else {
-                        return null;
-                    }
+            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+                indice++;
+                while (indice >= this.longitud) {
+                    indice = indice - this.longitud;
+                }
+                if (recorrido < this.longitud) {
+                    recorrido++;
+                } else {
+                    return null;
                 }
             }
         }
 
         return this.usuarios[indice];
-        
+
     }
 
     public boolean usuarioExiste(String user) {
@@ -342,19 +340,19 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
-            if (this.usuarios[indice] != null) {
-                while (!this.usuarios[indice].getUserS().equals(user)) {
-                    indice++;
-                    while (indice >= this.longitud) {
-                        indice = indice - this.longitud;
-                    }
-                    if (recorrido < this.longitud) {
-                        recorrido++;
-                    } else {
-                        return false;
-                    }
+
+            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+                indice++;
+                while (indice >= this.longitud) {
+                    indice = indice - this.longitud;
+                }
+                if (recorrido < this.longitud) {
+                    recorrido++;
+                } else {
+                    return false;
                 }
             }
+
         }
 
         return this.usuarios[indice] != null;
@@ -389,17 +387,15 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indiceBuscar == indiceTemp && intento > 0) {
-            if (this.usuarios[indiceBuscar] != null) {
-                while (!this.usuarios[indiceBuscar].getUserS().equals(user)) {
-                    indiceBuscar++;
-                    while (indiceBuscar >= this.longitud) {
-                        indiceBuscar = indiceBuscar - this.longitud;
-                    }
-                    if (recorrido < this.longitud) {
-                        recorrido++;
-                    } else {
-                        return false;
-                    }
+            while (!this.usuarios[indiceBuscar].getUserS().equals(user) && this.usuarios[indiceBuscar] != null) {
+                indiceBuscar++;
+                while (indiceBuscar >= this.longitud) {
+                    indiceBuscar = indiceBuscar - this.longitud;
+                }
+                if (recorrido < this.longitud) {
+                    recorrido++;
+                } else {
+                    return false;
                 }
             }
         }

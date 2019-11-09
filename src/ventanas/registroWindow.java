@@ -128,10 +128,8 @@ public class registroWindow extends javax.swing.JFrame {
         if (usuario.equals("") || password.equals("") || usuario.equals("Ingresar Usuario") || password.equals("Ingresar Contraseña")){
             lblError.setText("*No has llenado todos los campos.");
         }else{
-            //Verificar que el usuario no exista
-            System.out.println("Verificar credenciales.");
-            boolean existe = SoftwareEDDDriver.usuarios.usuarioExiste(usuario);            
-            System.out.println("Verificacion dio como resultado " + existe);
+            //Verificar que el usuario no exista            
+            boolean existe = SoftwareEDDDriver.usuarios.usuarioExiste(usuario);                        
             if(!existe){
                 if(password.length() < 8){
                     lblError.setText("*Contraseña invalida. Debe contenter 8 caracteres mínimo.");

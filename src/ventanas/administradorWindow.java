@@ -157,6 +157,8 @@ public class administradorWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCargaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaUsuariosActionPerformed
+        //Reset de lista
+        SoftwareEDDDriver.errores.resetLista();
         //Variables para manejo de usuarios
         boolean usuario = true;
         String user = "";
@@ -200,14 +202,16 @@ public class administradorWindow extends javax.swing.JFrame {
                             SoftwareEDDDriver.errores.insertar(user, password, "Usuario ya existe.");
                             rechazados++;
                         } else //Si no existe el usuario, verificar la contraseña
-                        if (password.length() > 8) {
-                            //Si es mayor a 8 se aprueba y se registra
-                            SoftwareEDDDriver.usuarios.insertHash(user, password);
-                            registrados++;
-                        } else {
-                            //Si no es mayor a 8 no se arpueba
-                            SoftwareEDDDriver.errores.insertar(user, password, "Contraseña menor a 8 caracteres.");
-                            rechazados++;
+                        {
+                            if (password.length() > 7) {
+                                //Si es mayor a 8 se aprueba y se registra
+                                SoftwareEDDDriver.usuarios.insertHash(user, password);
+                                registrados++;
+                            } else {
+                                //Si no es mayor a 8 no se arpueba
+                                SoftwareEDDDriver.errores.insertar(user, password, "Contraseña menor a 8 caracteres.");
+                                rechazados++;
+                            }
                         }
                     }
 

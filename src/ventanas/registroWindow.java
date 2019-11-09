@@ -77,7 +77,7 @@ public class registroWindow extends javax.swing.JFrame {
         getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 280, 30));
 
         btnIniciar.setBackground(new java.awt.Color(144, 204, 232));
-        btnIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 16)); // NOI18N
+        btnIniciar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 16)); // NOI18N
         btnIniciar.setForeground(new java.awt.Color(72, 86, 97));
         btnIniciar.setText("Ingresar");
         btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

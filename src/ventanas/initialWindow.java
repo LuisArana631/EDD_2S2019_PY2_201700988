@@ -52,7 +52,8 @@ public class initialWindow extends javax.swing.JFrame {
         getContentPane().add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 470, 30));
 
         btnAdmin.setBackground(new java.awt.Color(56, 150, 201));
-        btnAdmin.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnAdmin.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnAdmin.setText("Funciones Administrador");
         btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +64,8 @@ public class initialWindow extends javax.swing.JFrame {
         getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 256, -1));
 
         btnCrearCarpeta2.setBackground(new java.awt.Color(56, 150, 201));
-        btnCrearCarpeta2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnCrearCarpeta2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnCrearCarpeta2.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearCarpeta2.setText("Reportes");
         btnCrearCarpeta2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrearCarpeta2.addActionListener(new java.awt.event.ActionListener() {
@@ -92,22 +94,26 @@ public class initialWindow extends javax.swing.JFrame {
         jPanel3.setOpaque(false);
 
         btnCrearArchivo.setBackground(new java.awt.Color(56, 150, 210));
-        btnCrearArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnCrearArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnCrearArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearArchivo.setText("Crear");
         btnCrearArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnModificarArchivo.setBackground(new java.awt.Color(56, 150, 210));
-        btnModificarArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnModificarArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnModificarArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarArchivo.setText("Modificar");
         btnModificarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnEliminarArchivo.setBackground(new java.awt.Color(56, 150, 210));
-        btnEliminarArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnEliminarArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnEliminarArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarArchivo.setText("Eliminar");
         btnEliminarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnSubirArchivo.setBackground(new java.awt.Color(56, 150, 210));
-        btnSubirArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnSubirArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnSubirArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirArchivo.setText("Subir");
         btnSubirArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -143,22 +149,26 @@ public class initialWindow extends javax.swing.JFrame {
         jPanel1.setOpaque(false);
 
         btnCrearCarpeta.setBackground(new java.awt.Color(56, 150, 201));
-        btnCrearCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnCrearCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnCrearCarpeta.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearCarpeta.setText("Crear");
         btnCrearCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnModificarCarpeta.setBackground(new java.awt.Color(56, 150, 201));
-        btnModificarCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnModificarCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnModificarCarpeta.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarCarpeta.setText("Modificar");
         btnModificarCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnEliminarCarpeta.setBackground(new java.awt.Color(56, 150, 201));
-        btnEliminarCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnEliminarCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnEliminarCarpeta.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCarpeta.setText("Eliminar");
         btnEliminarCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnSubirCarpeta.setBackground(new java.awt.Color(56, 150, 201));
-        btnSubirCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnSubirCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnSubirCarpeta.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCarpeta.setText("Subir");
         btnSubirCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -216,6 +226,14 @@ public class initialWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        //Actualizar bitacora
+        SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Cerrar sesión.");
+        
+        //Igualar a null el nodo de usuario que se utiliza, al igual que el string
+        SoftwareEDDDriver.userLog  = "";
+        SoftwareEDDDriver.userActual = null;
+        
+        //Mostrar la ventana de login
         loginWindow login = new loginWindow();
         login.setVisible(true);
         this.setVisible(false);
@@ -231,12 +249,9 @@ public class initialWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearCarpeta2ActionPerformed
 
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
-        try {
-            
-            SoftwareEDDDriver.usuarios.graficar();
-        } catch (IOException ex) {
-            Logger.getLogger(initialWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        administradorWindow adminWindow = new administradorWindow();
+        adminWindow.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAdminActionPerformed
 
     /**

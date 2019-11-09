@@ -70,7 +70,7 @@ public class loginWindow extends javax.swing.JFrame {
         getContentPane().add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 280, -1));
 
         btnIniciar.setBackground(new java.awt.Color(56, 150, 201));
-        btnIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 16)); // NOI18N
+        btnIniciar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 16)); // NOI18N
         btnIniciar.setForeground(new java.awt.Color(72, 86, 97));
         btnIniciar.setText("Ingresar");
         btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -117,21 +117,30 @@ public class loginWindow extends javax.swing.JFrame {
         usuario = txtUser.getText();
         password = txtPass.getText();
 
+        //Verificar que los textbox esten con datos
         if (usuario.equals("") || password.equals("") || usuario.equals("Ingresar Usuario") || password.equals("Ingresar Contraseña")) {
             lblError.setText("*No has llenado todos los campos.");
         } else {
+            //Verificar credenciales con la funcion
             boolean existe = SoftwareEDDDriver.usuarios.verificarCredenciales(usuario, password);
 
             if (existe) {
+                //Actualizar el usuario activo y la bitacora
                 SoftwareEDDDriver.bitacora.push(usuario, "Iniciar sesión.");
+                SoftwareEDDDriver.userLog = usuario;
                 initialWindow inicial = new initialWindow();
                 
+                //Verificar el tipo de usuario que ingreso
                 if(usuario.equals("ADMIN")){
                     inicial.btnAdmin.setVisible(true);
                 }else{
                     inicial.btnAdmin.setVisible(false);
-                }             
+                }           
                 
+                //Obtener el nodo con los datos para manejar
+                SoftwareEDDDriver.userActual = SoftwareEDDDriver.usuarios.getNodoHash(usuario);
+                
+                //Mostrar el JFrame de la ventana inicial
                 inicial.setVisible(true);
                 inicial.lblUser.setText(usuario);
                 this.setVisible(false);

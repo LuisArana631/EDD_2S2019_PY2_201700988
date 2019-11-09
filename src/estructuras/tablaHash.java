@@ -161,7 +161,7 @@ public class tablaHash {
                 archivo.createNewFile();
             }
 
-            try ( PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
+            try (PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
                 write.println("digraph usuarios {");
                 write.println("label=\"Usuarios\";");
                 write.println("graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];");
@@ -191,7 +191,7 @@ public class tablaHash {
             }
 
             try {
-                try ( PrintWriter write = new PrintWriter(htmlUsuarios, "UTF-8")) {
+                try (PrintWriter write = new PrintWriter(htmlUsuarios, "UTF-8")) {
                     write.println("<html>");
                     write.println("<head>");
                     write.println("<title> Reporte Usuarios </title>");
@@ -270,15 +270,58 @@ public class tablaHash {
         return codigo;
     }
 
+    public nodoHash getNodoHash(String user) {
+        int userGet = codificarUser(user);
+        int intento = 0;
+        int indice = funcionH(userGet, intento);
+        int indiceTemp = indice;
+
+        do {
+            if (this.usuarios[indice] != null) {
+                if (this.usuarios[indice].getUserS().equals(user)) {
+                    return this.usuarios[indice];
+                } else {
+                    intento++;
+                    indice = funcionH(userGet, intento);
+
+                    while (indice >= this.longitud) {
+                        indice = indice - this.longitud;
+                    }
+                }
+            } else {
+                return null;
+            }
+        } while (indice != indiceTemp);
+
+        int recorrido = 0;
+
+        if (indice == indiceTemp && intento > 0) {
+            if (this.usuarios[indice] != null) {
+                while (!this.usuarios[indice].getUserS().equals(user)) {
+                    indice++;
+                    while (indice >= this.longitud) {
+                        indice = indice - this.longitud;
+                    }
+                    if (recorrido < this.longitud) {
+                        recorrido++;
+                    } else {
+                        return null;
+                    }
+                }
+            }
+        }
+
+        return this.usuarios[indice];
+        
+    }
+
     public boolean usuarioExiste(String user) {
-        System.out.println("Empezando verificacion.");
         int userVerificar = codificarUser(user);
         int intento = 0;
         int indice = funcionH(userVerificar, intento);
         int indiceTemp = indice;
 
         do {
-            System.out.println("Estamos en el while 1 con indice: " + indice + " y con indiceTemp: " + indiceTemp + " con " + user);
             if (this.usuarios[indice] != null) {
                 if (this.usuarios[indice].getUserS().equals(user)) {
                     //Si encontramos al usuario
@@ -301,7 +344,6 @@ public class tablaHash {
         if (indice == indiceTemp && intento > 0) {
             if (this.usuarios[indice] != null) {
                 while (!this.usuarios[indice].getUserS().equals(user)) {
-                    System.out.println("Estamos en el while 2 con indice: " + indice + " y con indiceTemp: " + indiceTemp + " con " + user);
                     indice++;
                     while (indice >= this.longitud) {
                         indice = indice - this.longitud;

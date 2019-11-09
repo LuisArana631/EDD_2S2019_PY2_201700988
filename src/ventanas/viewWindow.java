@@ -14,6 +14,7 @@ public class viewWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblLogo = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -24,8 +25,12 @@ public class viewWindow extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDDRed.png"))); // NOI18N
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 460, 150, 70));
+
         btnRegresar.setBackground(new java.awt.Color(56, 150, 201));
-        btnRegresar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btnRegresar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar");
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +97,7 @@ public class viewWindow extends javax.swing.JFrame {
     public javax.swing.JEditorPane edPaneWeb;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JLabel lblLogo;
     public javax.swing.JLabel lblNombre;
     // End of variables declaration//GEN-END:variables
 }

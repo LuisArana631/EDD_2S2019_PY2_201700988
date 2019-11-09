@@ -8,8 +8,12 @@ import java.io.IOException;
 
 public class SoftwareEDDDriver {
 
+    //Nombre de usuario y carpeta actual
     public static String userLog = "";
+    public static String fileLog = "";
+    //Nodo de carpeta y usuario actual
     public static nodoHash userActual;
+    //Estructuras globales
     public static pila bitacora = new pila();
     public static tablaHash usuarios = new tablaHash(7);
     public static listaError errores =  new listaError();

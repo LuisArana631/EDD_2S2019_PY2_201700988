@@ -4,15 +4,27 @@ public class nodoArchivo {
 
     private String nombre;    
     private String contenido;
+    private String timeStamp;
     private nodoArchivo left;
     private nodoArchivo right;
+    private int altura;
 
-    public nodoArchivo(String nombre, String contenido) {
+    public nodoArchivo(String nombre, String contenido, String timeStamp) {
         this.nombre = nombre;
         this.contenido = contenido;
+        this.timeStamp = timeStamp;
+        this.altura = 0;
         this.left = null;
         this.right = null;
     }    
+    
+    public int getAltura(){
+        return this.altura;
+    }
+    
+    public void setAltura(int altura){
+        this.altura = altura;
+    }
     
     public String getNombre() {
         return nombre;
@@ -28,6 +40,14 @@ public class nodoArchivo {
 
     public void setContenido(String contenido) {
         this.contenido = contenido;
+    }
+    
+    public String getTimeStamp(){
+        return this.timeStamp;
+    }
+    
+    public void setTimeStamp(String timeStamp){
+        this.timeStamp = timeStamp;
     }
 
     public nodoArchivo getLeft() {

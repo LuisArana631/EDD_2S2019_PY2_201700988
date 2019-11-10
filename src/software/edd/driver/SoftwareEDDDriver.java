@@ -10,6 +10,7 @@ public class SoftwareEDDDriver {
 
     //Nombre de usuario y carpeta actual
     public static String userLog = "";
+    public static String folderLog = "";
     public static String fileLog = "";
     //Nodo de carpeta y usuario actual
     public static nodoHash userActual;

@@ -15,12 +15,12 @@ public class SoftwareEDDDriver {
     //Estructuras globales
     public static pila bitacora = new pila();
     public static tablaHash usuarios = new tablaHash(7);
-    public static listaError errores =  new listaError();
+    public static listaError errores = new listaError();
 
     public static void main(String[] args) throws IOException {
         ventanas.loginWindow login = new ventanas.loginWindow();
         login.setVisible(true);
-        usuarios.insertHash("ADMIN", "ADMIN");                                  
+        usuarios.insertHash("ADMIN", "ADMIN");
     }
 
 }

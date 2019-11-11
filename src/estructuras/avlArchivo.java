@@ -153,7 +153,7 @@ public class avlArchivo {
             }
 
             //Escribimos dentro del archivo .dot
-            try (PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
                 write.println("digraph ArbolArchivos{");
                 write.println("node [shape=record, height=.1];");
                 write.close();
@@ -165,7 +165,7 @@ public class avlArchivo {
             crearArbol(this.raiz, pathDot);
 
             //Terminamos de escribir el codigo
-            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
+            try ( FileWriter escribir = new FileWriter(pathDot, true);  PrintWriter write = new PrintWriter(escribir)) {
                 write.println("label= \"Reporte de archivos\";");
                 write.println("}");
                 write.close();
@@ -185,7 +185,7 @@ public class avlArchivo {
             }
 
             //Escribir estructura del archivo html
-            try (PrintWriter write = new PrintWriter(htmlArchivo, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(htmlArchivo, "UTF-8")) {
                 write.println("<html>");
                 write.println("<head>");
                 write.println("<title> Reporte de archivos </title>");
@@ -218,7 +218,7 @@ public class avlArchivo {
             crearArbol(nodo.getLeft(), pathDot);
 
             //Escribimos dentro del archivo .dot
-            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
+            try ( FileWriter escribir = new FileWriter(pathDot, true);  PrintWriter write = new PrintWriter(escribir)) {
                 write.println("node" + nodo.getNombre() + "[label = \"<f0> |<f1> " + nodo.getNombre() + "." + nodo.getExtension() + "\\n" + nodo.getContenido() + "\\n" + nodo.getAltura() + "\\n" + nodo.getPropietario() + "\\n" + nodo.getTimeStamp() + "|<f2> \"];");
 
                 //Validar hijo izquierdo
@@ -323,11 +323,51 @@ public class avlArchivo {
 
         return nodo;
 
-    }       
+    }
 
     public void delete(String nombre) {
         //Llamar a funcion eliminar e igualar el nodo resultante a la raiz
         this.raiz = eliminar(this.raiz, nombre);
     }
     
+    public void descargar(String nombre) throws IOException{
+        descargarArchivo(this.raiz, nombre);
+    }
+
+    private void descargarArchivo(nodoArchivo nodo, String nombre) throws IOException {
+
+        if (nodo == null) {
+            JOptionPane.showMessageDialog(null, "Error al descargar el archivo.", "Error con la descarga.", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //Evaluar si es menor
+        if (nombre.compareTo(nodo.getNombre()) < 0) {
+            descargarArchivo(nodo.getLeft(), nombre);
+            //Evaluar si es mayor
+        } else if (nombre.compareTo(nodo.getNombre()) > 0) {
+            descargarArchivo(nodo.getRight(), nombre);
+            //Nodo correcto
+        } else {
+            //Crear el archivo en la carpeta de descargas
+            String path = System.getProperty("user.home");
+            path += "\\Downloads\\" + nodo.getNombre() + "." + nodo.getExtension();
+            System.out.println(path);
+            File archivo = new File(path);
+
+            if (!archivo.exists()) {
+                archivo.createNewFile();
+            }
+
+            try ( PrintWriter write = new PrintWriter(path, "UTF-8")) {
+                write.println(nodo.getContenido());
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
+            }
+
+            JOptionPane.showMessageDialog(null, nodo.getNombre() + "." + nodo.getExtension() + " descargado con exito.", "Se ha descargado el archivo.", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }
+
 }

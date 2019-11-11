@@ -2,6 +2,7 @@ package estructuras;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -9,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import software.edd.driver.SoftwareEDDDriver;
 import ventanas.viewWindow;
 
 public class avlArchivo {
@@ -20,7 +22,7 @@ public class avlArchivo {
     }
 
     private int altura(nodoArchivo nodo) {
-        if (arbolVacio()) {
+        if (nodo == null) {
             return -1;
         }
 
@@ -28,7 +30,7 @@ public class avlArchivo {
     }
 
     private int getBalance(nodoArchivo nodo) {
-        if (arbolVacio()) {
+        if (nodo == null) {
             return 0;
         }
 
@@ -61,34 +63,34 @@ public class avlArchivo {
         return tempDerechaNodo;
     }
 
-    public void insertar(String nombre, String contenido, String propietario) {
+    public void insertar(String nombre, String extension, String contenido) {
         //Obtener hora y fecha del momento de insercion
         Date datePull = new Date();
         DateFormat dateHour = new SimpleDateFormat("HH:mm:ss dd/MM/yy");
         String timeStamp = dateHour.format(datePull);
         //Enviar datos al metodo insert
-        this.raiz = insert(this.raiz, nombre, contenido, timeStamp, propietario);
+        this.raiz = insert(this.raiz, nombre, extension, contenido, timeStamp, SoftwareEDDDriver.userLog);
     }
 
-    private nodoArchivo insert(nodoArchivo nodo, String nombre, String contenido, String timeStamp, String propietario) {
+    private nodoArchivo insert(nodoArchivo nodo, String nombre, String extension, String contenido, String timeStamp, String propietario) {
         //Verificar si el nodo esta vacío
         if (nodo == null) {
-            return new nodoArchivo(nombre, contenido, timeStamp, propietario);
+            return new nodoArchivo(nombre, extension, contenido, timeStamp, propietario);
         }
 
         //Si el nombre es menor al nodo evaluado ir izquierda
         if (nombre.compareTo(nodo.getNombre()) < 0) {
-            nodo.setLeft(insert(nodo.getLeft(), nombre, contenido, timeStamp, propietario));
+            nodo.setLeft(insert(nodo.getLeft(), nombre, extension, contenido, timeStamp, propietario));
             //Si el nombre es mayor al nodo evaluado ir derecha
         } else if (nombre.compareTo(nodo.getNombre()) > 0) {
-            nodo.setRight(insert(nodo.getRight(), nombre, contenido, timeStamp, propietario));
+            nodo.setRight(insert(nodo.getRight(), nombre, extension, contenido, timeStamp, propietario));
             //Si el nombre es igual al nodo evaluado actualizar contenido
         } else {
             nodo.setContenido(contenido);
         }
 
         //Asignar altura del nodo
-        nodo.setAltura(Math.max(altura(nodo.getLeft()), altura(nodo.getRight())));
+        nodo.setAltura(Math.max(altura(nodo.getLeft()), altura(nodo.getRight())) + 1);
 
         //Validar rotaciones
         nodo = Balancear(nodo, nombre);
@@ -100,14 +102,25 @@ public class avlArchivo {
         //Obtener el balance del nodo
         int balance = getBalance(nodo);
 
-        if (balance > 1 && nombre.compareTo(nodo.getLeft().getNombre()) < 0) {
+        String nombreLeft = "";
+        String nombreRight = "";
+
+        if (nodo.getLeft() != null) {
+            nombreLeft = nodo.getLeft().getNombre();
+        }
+
+        if (nodo.getRight() != null) {
+            nombreRight = nodo.getRight().getNombre();
+        }
+
+        if (balance > 1 && nombre.compareTo(nombreLeft) < 0) {
             return rotacionDerecha(nodo);
-        } else if (balance < 1 && nombre.compareTo(nodo.getRight().getNombre()) > 0) {
+        } else if (balance < -1 && nombre.compareTo(nombreRight) > 0) {
             return rotacionIzquierda(nodo);
-        } else if (balance > 1 && nombre.compareTo(nodo.getLeft().getNombre()) > 0) {
+        } else if (balance > 1 && nombre.compareTo(nombreLeft) > 0) {
             nodo.setLeft(rotacionIzquierda(nodo.getLeft()));
             return rotacionDerecha(nodo);
-        } else if (balance < 1 && nombre.compareTo(nodo.getRight().getNombre()) < 0) {
+        } else if (balance < -1 && nombre.compareTo(nombreRight) < 0) {
             nodo.setRight(rotacionDerecha(nodo.getRight()));
             return rotacionIzquierda(nodo);
         }
@@ -152,12 +165,10 @@ public class avlArchivo {
             crearArbol(this.raiz, pathDot);
 
             //Terminamos de escribir el codigo
-            try (PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
+            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
                 write.println("label= \"Reporte de archivos\";");
                 write.println("}");
                 write.close();
-            } catch (FileNotFoundException | UnsupportedEncodingException e) {
-                JOptionPane.showMessageDialog(null, "Error al crear el reporte de archivos." + e, "Error con los archivos.", JOptionPane.ERROR_MESSAGE);
             }
 
             //Generar la imagen con el comando cmd
@@ -207,8 +218,8 @@ public class avlArchivo {
             crearArbol(nodo.getLeft(), pathDot);
 
             //Escribimos dentro del archivo .dot
-            try (PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
-                write.println("node" + nodo.getNombre() + "[label = \"<f0> |<f1> " + nodo.getNombre() + "\\n" + nodo.getContenido() + "\\n" + nodo.getAltura() + "\\n" + nodo.getPropietario() + "\\n" + nodo.getTimeStamp() + "|<f2> \"];");
+            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
+                write.println("node" + nodo.getNombre() + "[label = \"<f0> |<f1> " + nodo.getNombre() + "." + nodo.getExtension() + "\\n" + nodo.getContenido() + "\\n" + nodo.getAltura() + "\\n" + nodo.getPropietario() + "\\n" + nodo.getTimeStamp() + "|<f2> \"];");
 
                 //Validar hijo izquierdo
                 if (nodo.getLeft() != null) {
@@ -221,10 +232,9 @@ public class avlArchivo {
                 }
 
                 write.close();
-            } catch (FileNotFoundException | UnsupportedEncodingException e) {
-                JOptionPane.showMessageDialog(null, "Error al crear el reporte de archivos." + e, "Error con los archivos.", JOptionPane.ERROR_MESSAGE);
+
             }
-            
+
             crearArbol(nodo.getRight(), pathDot);
         }
     }

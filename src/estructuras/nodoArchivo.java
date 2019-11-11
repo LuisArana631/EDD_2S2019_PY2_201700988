@@ -2,7 +2,8 @@ package estructuras;
 
 public class nodoArchivo {
 
-    private String nombre;    
+    private String nombre;
+    private String extension;
     private String contenido;
     private String timeStamp;
     private String propietario;
@@ -10,32 +11,41 @@ public class nodoArchivo {
     private nodoArchivo right;
     private int altura;
 
-    public nodoArchivo(String nombre, String contenido, String propietario, String timeStamp) {
+    public nodoArchivo(String nombre, String extension, String contenido, String propietario, String timeStamp) {
         this.nombre = nombre;
+        this.extension = extension;
         this.contenido = contenido;
         this.timeStamp = timeStamp;
         this.propietario = propietario;
         this.altura = 0;
         this.left = null;
         this.right = null;
-    }    
-    
-    public String getPropietario(){
+    }
+
+    public String getExtension() {
+        return this.extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getPropietario() {
         return this.propietario;
     }
-    
-    public void setPropietario(String propietario){
+
+    public void setPropietario(String propietario) {
         this.propietario = propietario;
     }
-    
-    public int getAltura(){
+
+    public int getAltura() {
         return this.altura;
     }
-    
-    public void setAltura(int altura){
+
+    public void setAltura(int altura) {
         this.altura = altura;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -51,12 +61,12 @@ public class nodoArchivo {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-    
-    public String getTimeStamp(){
+
+    public String getTimeStamp() {
         return this.timeStamp;
     }
-    
-    public void setTimeStamp(String timeStamp){
+
+    public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 
@@ -75,7 +85,5 @@ public class nodoArchivo {
     public void setRight(nodoArchivo right) {
         this.right = right;
     }
-    
-    
-    
+
 }

@@ -352,7 +352,6 @@ public class avlArchivo {
             //Crear el archivo en la carpeta de descargas
             String path = System.getProperty("user.home");
             path += "\\Downloads\\" + nodo.getNombre() + "." + nodo.getExtension();
-            System.out.println(path);
             File archivo = new File(path);
 
             if (!archivo.exists()) {

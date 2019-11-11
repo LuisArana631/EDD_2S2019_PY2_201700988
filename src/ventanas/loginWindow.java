@@ -135,11 +135,8 @@ public class loginWindow extends javax.swing.JFrame {
                     inicial.btnAdmin.setVisible(true);
                 }else{
                     inicial.btnAdmin.setVisible(false);
-                }           
-                
-                //Obtener el nodo con los datos para manejar
-                SoftwareEDDDriver.userActual = SoftwareEDDDriver.usuarios.getNodoHash(usuario);
-                
+                }                          
+                                
                 //Mostrar el JFrame de la ventana inicial
                 inicial.setVisible(true);
                 inicial.lblUser.setText(usuario);

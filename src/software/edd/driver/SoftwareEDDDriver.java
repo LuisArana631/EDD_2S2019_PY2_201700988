@@ -1,5 +1,6 @@
 package software.edd.driver;
 
+import estructuras.avlArchivo;
 import estructuras.listaError;
 import estructuras.nodoHash;
 import estructuras.pila;
@@ -12,8 +13,6 @@ public class SoftwareEDDDriver {
     public static String userLog = "";
     public static String folderLog = "";
     public static String fileLog = "";
-    //Nodo de carpeta y usuario actual
-    public static nodoHash userActual;
     //Estructuras globales
     public static pila bitacora = new pila();
     public static tablaHash usuarios = new tablaHash(7);
@@ -22,7 +21,11 @@ public class SoftwareEDDDriver {
     public static void main(String[] args) throws IOException {
         ventanas.loginWindow login = new ventanas.loginWindow();
         login.setVisible(true);
-        usuarios.insertHash("ADMIN", "ADMIN");        
+        usuarios.insertHash("ADMIN", "ADMIN");           
+        
+        avlArchivo avl = new avlArchivo();
+        avl.insertar("Luis.exe", "Hola mundo", "Luis");
+        avl.graficar();
     }
 
 }

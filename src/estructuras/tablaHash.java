@@ -221,9 +221,9 @@ public class tablaHash {
         String tabla = "";
         for (int i = 0; i < this.longitud; i++) {
             if (this.usuarios[i] != null) {
-                tabla += "<TR><TD>" + i + "</TD><TD>" + this.usuarios[i].getUserS() + "</TD><TD>" + this.usuarios[i].getPassword() + "</TD><TD>" + usuarios[i].getTimeStamp() + "</TD></TR>\n";
+                tabla += "<TR><TD>" + i + "</TD><TD>" + this.usuarios[i].getUserS() + "</TD><TD>" + this.usuarios[i].getPassword() + "</TD><TD>" + usuarios[i].getTimeStamp() + "</TD></TR>\r\n";
             } else {
-                tabla += "<TR><TD>" + i + "</TD><TD></TD><TD></TD><TD></TD></TR>";
+                tabla += "<TR><TD>" + i + "</TD><TD></TD><TD></TD><TD></TD></TR>\r\n";
             }
         }
         return tabla;

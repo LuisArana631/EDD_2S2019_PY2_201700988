@@ -5,18 +5,28 @@ public class nodoArchivo {
     private String nombre;    
     private String contenido;
     private String timeStamp;
+    private String propietario;
     private nodoArchivo left;
     private nodoArchivo right;
     private int altura;
 
-    public nodoArchivo(String nombre, String contenido, String timeStamp) {
+    public nodoArchivo(String nombre, String contenido, String propietario, String timeStamp) {
         this.nombre = nombre;
         this.contenido = contenido;
         this.timeStamp = timeStamp;
+        this.propietario = propietario;
         this.altura = 0;
         this.left = null;
         this.right = null;
     }    
+    
+    public String getPropietario(){
+        return this.propietario;
+    }
+    
+    public void setPropietario(String propietario){
+        this.propietario = propietario;
+    }
     
     public int getAltura(){
         return this.altura;

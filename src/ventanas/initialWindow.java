@@ -230,8 +230,7 @@ public class initialWindow extends javax.swing.JFrame {
         SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Cerrar sesión.");
         
         //Igualar a null el nodo de usuario que se utiliza, al igual que el string
-        SoftwareEDDDriver.userLog  = "";
-        SoftwareEDDDriver.userActual = null;
+        SoftwareEDDDriver.userLog  = "";        
         
         //Mostrar la ventana de login
         loginWindow login = new loginWindow();

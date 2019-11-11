@@ -248,4 +248,86 @@ public class avlArchivo {
             JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    private nodoArchivo eliminar(nodoArchivo nodo, String nombre) {
+
+        if (nodo == null) {
+            return nodo;
+        }
+
+        //Evaluar si es menor
+        if (nombre.compareTo(nodo.getNombre()) < 0) {
+            nodo.setLeft(eliminar(nodo.getLeft(), nombre));
+            //Evaluar si es mayor
+        } else if (nombre.compareTo(nodo.getNombre()) > 0) {
+            nodo.setRight(eliminar(nodo.getRight(), nombre));
+            //Nodo correcto
+        } else //Si el nodo a borrar tiene hijos
+        {
+            if (nodo.getLeft() == null && nodo.getRight() == null) {
+                return null;
+                //Si el nodo a borrar tiene hijo derecho
+            } else if (nodo.getLeft() == null) {
+                nodoArchivo aux = nodo.getRight();
+                nodo = null;
+                return aux;
+                //Si el nodo a borrar tiene hijo izquierdo
+            } else if (nodo.getRight() == null) {
+                nodoArchivo aux = nodo.getLeft();
+                nodo = null;
+                return aux;
+                //Si el nodo tiene dos hijos
+            } else {
+                nodoArchivo aux = getAnterior(nodo.getLeft());
+                nodo.setNombre(aux.getNombre());
+                nodo.setExtension(aux.getExtension());
+                nodo.setContenido(aux.getContenido());
+                nodo.setTimeStamp(aux.getTimeStamp());
+                nodo.setPropietario(aux.getPropietario());
+                nodo.setLeft(eliminar(nodo.getLeft(), aux.getNombre()));
+            }
+        }
+
+        nodo.setAltura(Math.max(altura(nodo.getLeft()), altura(nodo.getRight())) + 1);
+
+        return updateDelete(nodo);
+
+    }
+
+    private nodoArchivo getAnterior(nodoArchivo nodo) {
+        nodoArchivo anterior = nodo;
+
+        while (anterior.getRight() != null) {
+            anterior = anterior.getRight();
+        }
+
+        return anterior;
+    }
+
+    private nodoArchivo updateDelete(nodoArchivo nodo) {
+        int balance = getBalance(nodo);
+
+        if (balance > 1) {
+            if (getBalance(nodo.getLeft()) < 0) {
+                nodo.setLeft(rotacionIzquierda(nodo.getLeft()));
+            }
+
+            return rotacionDerecha(nodo);
+        } else if (balance < -1) {
+            if (getBalance(nodo.getRight()) > 0) {
+                nodo.setRight(rotacionDerecha(nodo.getRight()));
+            }
+
+            return rotacionIzquierda(nodo);
+        }
+
+        return nodo;
+
+    }       
+
+    public void delete(String nombre) {
+        //Llamar a funcion eliminar e igualar el nodo resultante a la raiz
+        this.raiz = eliminar(this.raiz, nombre);
+    }
+    
 }

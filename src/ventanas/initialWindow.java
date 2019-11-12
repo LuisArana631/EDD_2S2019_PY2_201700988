@@ -40,7 +40,7 @@ public class initialWindow extends javax.swing.JFrame {
         btnModificarCarpeta = new javax.swing.JButton();
         btnEliminarCarpeta = new javax.swing.JButton();
         btnSubirCarpeta = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        panelVisual = new javax.swing.JPanel();
         lblFondo1 = new javax.swing.JLabel();
         lblFondo2 = new javax.swing.JLabel();
 
@@ -200,21 +200,21 @@ public class initialWindow extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 280, 170));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.lightGray), "Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI Light", 1, 12))); // NOI18N
-        jPanel2.setOpaque(false);
+        panelVisual.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.lightGray), "Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI Light", 1, 12))); // NOI18N
+        panelVisual.setOpaque(false);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelVisualLayout = new javax.swing.GroupLayout(panelVisual);
+        panelVisual.setLayout(panelVisualLayout);
+        panelVisualLayout.setHorizontalGroup(
+            panelVisualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelVisualLayout.setVerticalGroup(
+            panelVisualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 480, 350));
+        getContentPane().add(panelVisual, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 480, 350));
 
         lblFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/white.jpg"))); // NOI18N
         getContentPane().add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 790, 430));
@@ -301,11 +301,11 @@ public class initialWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnSubirArchivo;
     private javax.swing.JButton btnSubirCarpeta;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblFondo1;
     private javax.swing.JLabel lblFondo2;
     private javax.swing.JLabel lblLogo;
     public javax.swing.JLabel lblUser;
+    public javax.swing.JPanel panelVisual;
     // End of variables declaration//GEN-END:variables
 }

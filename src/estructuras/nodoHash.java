@@ -15,7 +15,7 @@ public class nodoHash {
     private String timeStamp;
     private listaDobleCarpeta carpetas;    
 
-    nodoHash(String userS, String password) {
+    public nodoHash(String userS, String password) {
         this.userS = userS;
         this.carpetas = new listaDobleCarpeta();        
         //Codificar user
@@ -25,9 +25,10 @@ public class nodoHash {
         //Insertar  TimeStamp
         Date datePull = new Date();
         DateFormat dateHour =  new SimpleDateFormat("HH:mm:ss dd/MM/yy");
-        String date  = dateHour.format(datePull);
-        
-        this.timeStamp = date;
+        String date  = dateHour.format(datePull);        
+        this.timeStamp = date;        
+        //Agregar carpeta inicial
+        this.carpetas.insertar("raiz");
     }
     
     private String encriptarContraseña(String password){

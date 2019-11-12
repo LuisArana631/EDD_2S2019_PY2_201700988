@@ -8,6 +8,14 @@ public class listaSimpleCarpeta {
         this.inicio = null;
     }
 
+    public nodoSimpleCarpeta getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(nodoSimpleCarpeta inicio) {
+        this.inicio = inicio;
+    }
+
     public boolean listaVacia() {
         return this.inicio == null;
     }
@@ -15,10 +23,11 @@ public class listaSimpleCarpeta {
     public void insertar(String nombre) {
         nodoSimpleCarpeta nuevo = new nodoSimpleCarpeta(nombre);
         if (!listaVacia()) {
-            nuevo.setNext(nuevo);
-        } else {
-            this.inicio = nuevo;
+            nuevo.setNext(this.inicio);
         }
+
+        this.inicio = nuevo;
+
     }
 
     public void eliminar(String nombre) {
@@ -29,8 +38,8 @@ public class listaSimpleCarpeta {
             aux2 = aux;
             aux = aux.getNext();
         }
-        
-        aux2.setNext(aux.getNext()); 
+
+        aux2.setNext(aux.getNext());
     }
 
 }

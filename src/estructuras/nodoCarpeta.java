@@ -14,6 +14,10 @@ public class nodoCarpeta {
         this.carpetas = new listaSimpleCarpeta();
         this.next = null;
         this.previous = null;
+    }        
+    
+    public void insertarCarpetaEnlazada(String nombre){
+        this.carpetas.insertar(nombre);
     }
     
     public listaSimpleCarpeta getCarpetas(){

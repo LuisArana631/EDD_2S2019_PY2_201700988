@@ -130,17 +130,19 @@ public class loginWindow extends javax.swing.JFrame {
                 //Actualizar el usuario activo y la bitacora
                 SoftwareEDDDriver.bitacora.push(usuario, "Iniciar sesión.");
                 SoftwareEDDDriver.userLog = usuario;
+                SoftwareEDDDriver.folderLog = "raiz";
                 initialWindow inicial = new initialWindow();
-                
+
                 //Verificar el tipo de usuario que ingreso
-                if(usuario.equals("ADMIN")){
+                if (usuario.equals("ADMIN")) {
                     inicial.btnAdministrador.setVisible(true);
-                }else{
-                    inicial.btnAdministrador.setVisible(false);                    
-                    
-                }                          
-                                
+                } else {
+                    inicial.btnAdministrador.setVisible(false);
+
+                }
+                
                 //Mostrar el JFrame de la ventana inicial
+                SoftwareEDDDriver.usuarios.mostrarContenido(usuario, SoftwareEDDDriver.folderLog, inicial.panelVisual);
                 inicial.setVisible(true);
                 inicial.lblUser.setText(usuario);
                 this.setVisible(false);

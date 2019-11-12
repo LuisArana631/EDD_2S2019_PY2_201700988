@@ -43,9 +43,17 @@ public class listaDobleCarpeta {
             nuevo.setPrevious(this.fin);
         } else {
             this.inicio = nuevo;
-        }
+        }        
         this.fin = nuevo;
 
+    }
+    
+    public void mostrarCarpetas(){
+        nodoCarpeta aux = this.inicio;
+        while(aux!=null){
+            System.out.println("Carpeta: "+aux.getNombreCarpeta());
+            aux = aux.getNext();
+        }
     }
 
     public void eliminar(String nombreCarpeta) {
@@ -84,11 +92,9 @@ public class listaDobleCarpeta {
         //Crear icono de la carpeta        
         ImageIcon folder = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
 
-        //Crear icono para el archivo
-        ImageIcon file = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
-
         //Cargar todas las carpetas al panel
-        nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();
+        nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();        
+        
         while (temp != null) {
 
             //Crear el boton
@@ -114,14 +120,16 @@ public class listaDobleCarpeta {
                 x = 10;
                 conteo = 0;
             }
-
+            
             //Agregar boton al panel
-            panel.add(botonCarpeta);
-            panel.repaint();
-            //Siguiente carpeta
-            temp = temp.getNext();
+            panel.add(botonCarpeta);            
+            //Siguiente carpeta            
             conteo++;
-        }
+            temp = temp.getNext();
+        }        
+        
+        //Crear icono para el archivo
+        ImageIcon file = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
 
         //Cargar todos los archivos al panel
     }

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import software.edd.driver.SoftwareEDDDriver;
@@ -56,7 +57,7 @@ public class initialWindow extends javax.swing.JFrame {
         btnSalir.setBorder(null);
         btnSalir.setBorderPainted(false);
         btnSalir.setContentAreaFilled(false);
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -71,7 +72,7 @@ public class initialWindow extends javax.swing.JFrame {
         btnAdministrador.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
         btnAdministrador.setForeground(new java.awt.Color(255, 255, 255));
         btnAdministrador.setText("Funciones Administrador");
-        btnAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAdministrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdministradorActionPerformed(evt);
@@ -86,7 +87,7 @@ public class initialWindow extends javax.swing.JFrame {
         btnReportes.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
         btnReportes.setForeground(new java.awt.Color(255, 255, 255));
         btnReportes.setText("Reportes");
-        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnReportes.setPreferredSize(new java.awt.Dimension(240, 27));
 
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
@@ -110,9 +111,7 @@ public class initialWindow extends javax.swing.JFrame {
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane1.setOpaque(false);
-        jScrollPane1.setViewportView(panelVisual);
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         panelVisual.setBackground(new java.awt.Color(255, 255, 255));
         panelVisual.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.lightGray), "Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI Light", 1, 12))); // NOI18N
@@ -141,13 +140,13 @@ public class initialWindow extends javax.swing.JFrame {
         btnCrearArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
         btnCrearArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearArchivo.setText("Crear");
-        btnCrearArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         btnSubirArchivo.setBackground(new java.awt.Color(56, 150, 210));
         btnSubirArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
         btnSubirArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirArchivo.setText("Subir");
-        btnSubirArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSubirArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -178,13 +177,18 @@ public class initialWindow extends javax.swing.JFrame {
         btnCrearCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
         btnCrearCarpeta.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearCarpeta.setText("Crear");
-        btnCrearCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCrearCarpeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearCarpetaActionPerformed(evt);
+            }
+        });
 
         btnSubirCarpeta.setBackground(new java.awt.Color(56, 150, 201));
         btnSubirCarpeta.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
         btnSubirCarpeta.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCarpeta.setText("Subir");
-        btnSubirCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSubirCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -235,6 +239,15 @@ public class initialWindow extends javax.swing.JFrame {
         adminWindow.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAdministradorActionPerformed
+
+    private void btnCrearCarpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCarpetaActionPerformed
+        String nuevaCarpeta = JOptionPane.showInputDialog("Introducir nombre del archivo:");                
+        SoftwareEDDDriver.usuarios.insertarCarpeta(SoftwareEDDDriver.folderLog, nuevaCarpeta, SoftwareEDDDriver.userLog);
+        panelVisual.removeAll();
+        SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, panelVisual);
+        panelVisual.repaint();
+        SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Crear carpeta.");
+    }//GEN-LAST:event_btnCrearCarpetaActionPerformed
 
     /**
      * @param args the command line arguments

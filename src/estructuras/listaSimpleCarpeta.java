@@ -25,9 +25,16 @@ public class listaSimpleCarpeta {
         if (!listaVacia()) {
             nuevo.setNext(this.inicio);
         }
-
         this.inicio = nuevo;
 
+    }
+    
+    public void mostrarCarpetas(){
+        nodoSimpleCarpeta aux = this.inicio;
+        while(aux!=null){
+            System.out.println("Carpeta: "+aux.getNombre());
+            aux = aux.getNext();
+        }
     }
 
     public void eliminar(String nombre) {

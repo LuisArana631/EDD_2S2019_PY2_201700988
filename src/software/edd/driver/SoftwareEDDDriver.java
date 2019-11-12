@@ -23,7 +23,7 @@ public class SoftwareEDDDriver {
         ventanas.loginWindow login = new ventanas.loginWindow();
         login.setVisible(true);
         usuarios.insertHash("ADMIN", "ADMIN");
-        */
+        */       
         
         initialWindow prueba = new initialWindow();
         prueba.setVisible(true);
@@ -34,6 +34,9 @@ public class SoftwareEDDDriver {
         carpetas.carpetaInterior("Carpeta1", "raiz");
         carpetas.carpetaInterior("Carpeta2", "raiz");
         carpetas.carpetaInterior("Carpeta3", "raiz");        
+        carpetas.carpetaInterior("Carpeta4", "raiz");        
+        carpetas.carpetaInterior("Carpeta5", "raiz");        
+        carpetas.carpetaInterior("Carpeta6", "raiz");        
         carpetas.visualizarCarpeta(prueba.panelVisual,"raiz");
         prueba.panelVisual.repaint();
     }

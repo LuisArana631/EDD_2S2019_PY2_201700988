@@ -1,10 +1,13 @@
 package estructuras;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import software.edd.driver.SoftwareEDDDriver;
 
 public class listaDobleCarpeta {
@@ -66,45 +69,61 @@ public class listaDobleCarpeta {
     public void visualizarCarpeta(JPanel panel, String carpetaActual) {
         //Poner el nombre de la carpeta en la variable
         SoftwareEDDDriver.folderLog = carpetaActual;
-        
+
         //Variables de posicion
         int x = 10;
         int y = 20;
-        int Xmax = panel.getWidth();
-        int Ymax = panel.getHeight();
-        
+        int conteo = 0;
+
         //Buscar la carpeta a mostrar contenido
         nodoCarpeta aux = this.inicio;
         while (!carpetaActual.equals(aux.getNombreCarpeta())) {
             aux = aux.getNext();
-        }                   
-                
+        }
+
         //Crear icono de la carpeta        
-        ImageIcon folder = new ImageIcon("/imagenes/folder.png");
-        
+        ImageIcon folder = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
+
         //Crear icono para el archivo
-        ImageIcon file = new ImageIcon("/imagenes/folder.png");
-        
+        ImageIcon file = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
+
         //Cargar todas las carpetas al panel
-        nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();        
-        while (temp!=null){      
+        nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();
+        while (temp != null) {
+
             //Crear el boton
             JButton botonCarpeta = new JButton();
-            botonCarpeta.setBounds(x, y, 80, 80);            
-            botonCarpeta.setIcon(new ImageIcon(folder.getImage().getScaledInstance(70,70,Image.SCALE_SMOOTH)));
-            botonCarpeta.setBackground(Color.white);            
+            botonCarpeta.setBounds(x, y, 80, 70);
+            botonCarpeta.setContentAreaFilled(false);
+            botonCarpeta.setBorderPainted(false);
+            botonCarpeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            //Insertar imagen al boton
+            botonCarpeta.setIcon(new ImageIcon(folder.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+            botonCarpeta.setBackground(Color.white);
+            //Insertar texto al boton
+            botonCarpeta.setText(temp.getNombre());
+            botonCarpeta.setHorizontalTextPosition(SwingConstants.CENTER);
+            botonCarpeta.setVerticalTextPosition(SwingConstants.BOTTOM);
+            botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
+
             //Evaluar posicion del boton siguiente                                   
-            x+=90;    
-            
+            if (conteo < 4) {
+                x += 90;
+            }else{
+                y +=80;
+                x = 10;
+                conteo = 0;
+            }
+
             //Agregar boton al panel
-            panel.add(botonCarpeta);                                
+            panel.add(botonCarpeta);
             panel.repaint();
             //Siguiente carpeta
             temp = temp.getNext();
-        }    
-        
+            conteo++;
+        }
+
         //Cargar todos los archivos al panel
-        
     }
 
 }

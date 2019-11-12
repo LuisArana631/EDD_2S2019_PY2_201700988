@@ -1,6 +1,8 @@
 package ventanas;
 
 import com.placeholder.PlaceHolder;
+import java.util.HashSet;
+import java.util.Set;
 import software.edd.driver.SoftwareEDDDriver;
 
 public class loginWindow extends javax.swing.JFrame {
@@ -132,9 +134,10 @@ public class loginWindow extends javax.swing.JFrame {
                 
                 //Verificar el tipo de usuario que ingreso
                 if(usuario.equals("ADMIN")){
-                    inicial.btnAdmin.setVisible(true);
+                    inicial.btnAdministrador.setVisible(true);
                 }else{
-                    inicial.btnAdmin.setVisible(false);
+                    inicial.btnAdministrador.setVisible(false);                    
+                    
                 }                          
                                 
                 //Mostrar el JFrame de la ventana inicial

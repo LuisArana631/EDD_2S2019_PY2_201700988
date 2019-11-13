@@ -4,9 +4,15 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import software.edd.driver.SoftwareEDDDriver;
 
@@ -43,15 +49,15 @@ public class listaDobleCarpeta {
             nuevo.setPrevious(this.fin);
         } else {
             this.inicio = nuevo;
-        }        
+        }
         this.fin = nuevo;
 
     }
-    
-    public void mostrarCarpetas(){
+
+    public void mostrarCarpetas() {
         nodoCarpeta aux = this.inicio;
-        while(aux!=null){
-            System.out.println("Carpeta: "+aux.getNombreCarpeta());
+        while (aux != null) {
+            System.out.println("Carpeta: " + aux.getNombreCarpeta());
             aux = aux.getNext();
         }
     }
@@ -93,8 +99,8 @@ public class listaDobleCarpeta {
         ImageIcon folder = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
 
         //Cargar todas las carpetas al panel
-        nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();        
-        
+        nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();
+
         while (temp != null) {
 
             //Crear el boton
@@ -111,27 +117,58 @@ public class listaDobleCarpeta {
             botonCarpeta.setHorizontalTextPosition(SwingConstants.CENTER);
             botonCarpeta.setVerticalTextPosition(SwingConstants.BOTTOM);
             botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
+            //Menu popup
+            JPopupMenu menuPop = new JPopupMenu();            
+            JMenuItem modificar = new JMenuItem("Modificar");
+            JMenuItem eliminar = new JMenuItem("Eliminar");            
+            menuPop.add(modificar);
+            menuPop.add(eliminar);
+            //Añadir click listener al boton
+            botonCarpeta.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if ((e.getModifiers() & 4) != 0) {
+                        menuPop.show(botonCarpeta, e.getX(), e.getY());
+                    }
+                }
+            });
+            botonCarpeta.add(menuPop);
+            //ActionListener del boton
+            ActionListener listen = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SoftwareEDDDriver.folderLog = botonCarpeta.getText();
+                    panel.removeAll();
+                    visualizarCarpeta(panel, botonCarpeta.getText());
+                    panel.repaint();                                  
+
+                }
+            };
+            botonCarpeta.addActionListener(listen);
+            //Funcion de ingresar a carpeta
 
             //Evaluar posicion del boton siguiente                                   
             if (conteo < 4) {
                 x += 90;
-            }else{
-                y +=80;
+            } else {
+                y += 80;
                 x = 10;
                 conteo = 0;
             }
-            
+
             //Agregar boton al panel
-            panel.add(botonCarpeta);            
+            panel.add(botonCarpeta);
             //Siguiente carpeta            
             conteo++;
             temp = temp.getNext();
-        }        
-        
+        }
+
         //Crear icono para el archivo
         ImageIcon file = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
 
         //Cargar todos los archivos al panel
+        
+        //Repintar el panel
+        panel.repaint();
     }
 
 }

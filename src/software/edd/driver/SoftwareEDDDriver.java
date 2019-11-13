@@ -1,11 +1,9 @@
 package software.edd.driver;
 
-import estructuras.listaDobleCarpeta;
 import estructuras.listaError;
 import estructuras.pila;
 import estructuras.tablaHash;
 import java.io.IOException;
-import ventanas.initialWindow;
 
 public class SoftwareEDDDriver {
 

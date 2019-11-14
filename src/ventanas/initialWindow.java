@@ -1,4 +1,3 @@
-
 package ventanas;
 
 import javax.swing.JOptionPane;
@@ -6,22 +5,19 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import software.edd.driver.SoftwareEDDDriver;
 
-
 public class initialWindow extends javax.swing.JFrame {
 
-    
     public initialWindow() {
         initComponents();
-        
+
         lblUser.setHorizontalAlignment(SwingConstants.CENTER);
         btnCrearCarpeta.requestFocus();
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        
+
         this.setLocationRelativeTo(null);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,6 +81,11 @@ public class initialWindow extends javax.swing.JFrame {
         btnReportes.setText("Reportes");
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.setPreferredSize(new java.awt.Dimension(240, 27));
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
@@ -107,9 +108,7 @@ public class initialWindow extends javax.swing.JFrame {
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane1.setOpaque(false);
-        jScrollPane1.setViewportView(panelVisual);
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         panelVisual.setBackground(new java.awt.Color(255, 255, 255));
         panelVisual.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.lightGray), "Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI Light", 1, 12))); // NOI18N
@@ -139,6 +138,11 @@ public class initialWindow extends javax.swing.JFrame {
         btnCrearArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearArchivo.setText("Crear");
         btnCrearArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearArchivoActionPerformed(evt);
+            }
+        });
 
         btnSubirArchivo.setBackground(new java.awt.Color(56, 150, 210));
         btnSubirArchivo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
@@ -160,7 +164,7 @@ public class initialWindow extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(btnCrearArchivo)
+                .addComponent(btnCrearArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSubirArchivo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -222,10 +226,10 @@ public class initialWindow extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         //Actualizar bitacora
         SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Cerrar sesión.");
-        
+
         //Igualar a null el nodo de usuario que se utiliza, al igual que el string
-        SoftwareEDDDriver.userLog  = "";        
-        
+        SoftwareEDDDriver.userLog = "";
+
         //Mostrar la ventana de login
         loginWindow login = new loginWindow();
         login.setVisible(true);
@@ -239,13 +243,33 @@ public class initialWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdministradorActionPerformed
 
     private void btnCrearCarpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCarpetaActionPerformed
-        String nuevaCarpeta = JOptionPane.showInputDialog("Introducir nombre del archivo:");                
-        SoftwareEDDDriver.usuarios.insertarCarpeta(SoftwareEDDDriver.folderLog, nuevaCarpeta, SoftwareEDDDriver.userLog);
-        panelVisual.removeAll();
-        SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, panelVisual);
-        panelVisual.repaint();
-        SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Crear carpeta.");
+        String nuevaCarpeta = JOptionPane.showInputDialog(null, "Introducir nombre de la carpeta:", "Nombre de la carpeta", 1);
+        try {
+            if (!nuevaCarpeta.equals("")) {
+                SoftwareEDDDriver.usuarios.insertarCarpeta(SoftwareEDDDriver.folderLog, nuevaCarpeta, SoftwareEDDDriver.userLog);
+                panelVisual.removeAll();
+                SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, panelVisual);
+                panelVisual.repaint();
+                SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Crear carpeta.");
+            }
+        } catch (Exception e) {
+            
+        }
     }//GEN-LAST:event_btnCrearCarpetaActionPerformed
+
+    private void btnCrearArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearArchivoActionPerformed
+        createFileWindow creadorArchivo = new createFileWindow();
+        creadorArchivo.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCrearArchivoActionPerformed
+
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        reportesWindow report = new reportesWindow();
+        report.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnReportesActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,8 +1,6 @@
 package ventanas;
 
 import com.placeholder.PlaceHolder;
-import java.util.HashSet;
-import java.util.Set;
 import software.edd.driver.SoftwareEDDDriver;
 
 public class loginWindow extends javax.swing.JFrame {

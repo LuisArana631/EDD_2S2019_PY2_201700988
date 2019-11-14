@@ -46,7 +46,13 @@ public class listaSimpleCarpeta {
             aux = aux.getNext();
         }
 
-        aux2.setNext(aux.getNext());
+        if(aux2==null){
+            this.inicio = this.inicio.getNext();
+        }else{
+            aux2.setNext(aux.getNext());
+            aux.setNext(null);
+        }
+        
     }
 
 }

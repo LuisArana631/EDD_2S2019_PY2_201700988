@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -63,19 +64,23 @@ public class listaDobleCarpeta {
     }
 
     public void eliminar(String nombreCarpeta) {
+        nodoCarpeta now = this.inicio;
+        nodoCarpeta prev = null;
+
         if (listaVacia() != true) {
-            nodoCarpeta aux = this.inicio;
-            while (aux != null) {
-                if (aux.getNombreCarpeta().equals(nombreCarpeta)) {
-                    nodoCarpeta tempPrev = aux.getPrevious();
-                    nodoCarpeta tempNext = aux.getNext();
-                    tempPrev.setNext(tempNext);
-                    tempNext.setPrevious(tempPrev);
-                    aux.setNext(null);
-                    aux.setPrevious(null);
-                } else {
-                    aux = aux.getNext();
+            while (now != null) {
+                if (now.getNombreCarpeta().equals(nombreCarpeta)) {
+                    if (prev == null) {
+                        this.inicio = this.inicio.getNext();
+                        this.inicio.setPrevious(null);
+                    } else {
+                        prev.setNext(now.getNext());
+                        now.getNext().setPrevious(now.getPrevious());
+                    }
                 }
+
+                prev = now;
+                now = now.getNext();
             }
         }
     }
@@ -118,9 +123,9 @@ public class listaDobleCarpeta {
             botonCarpeta.setVerticalTextPosition(SwingConstants.BOTTOM);
             botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
             //Menu popup
-            JPopupMenu menuPop = new JPopupMenu();            
+            JPopupMenu menuPop = new JPopupMenu();
             JMenuItem modificar = new JMenuItem("Modificar");
-            JMenuItem eliminar = new JMenuItem("Eliminar");            
+            JMenuItem eliminar = new JMenuItem("Eliminar");
             menuPop.add(modificar);
             menuPop.add(eliminar);
             //Añadir click listener al boton
@@ -139,7 +144,7 @@ public class listaDobleCarpeta {
                     SoftwareEDDDriver.folderLog = botonCarpeta.getText();
                     panel.removeAll();
                     visualizarCarpeta(panel, botonCarpeta.getText());
-                    panel.repaint();                                  
+                    panel.repaint();
 
                 }
             };
@@ -160,15 +165,38 @@ public class listaDobleCarpeta {
             //Siguiente carpeta            
             conteo++;
             temp = temp.getNext();
-        }
+        }       
 
         //Crear icono para el archivo
-        ImageIcon file = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
-
-        //Cargar todos los archivos al panel
+        ImageIcon file = new ImageIcon(getClass().getResource("/imagenes/file.png"));
         
+        //Cargar todos los archivos al panel
+        aux.getArchivos().crearBotones(panel, x, y, conteo, file);
+
         //Repintar el panel
         panel.repaint();
+    }
+
+    public void insertarArchivo(String nombreArchivo, String extension, String contenido, String nombreCarpeta) {
+        nodoCarpeta aux = this.inicio;
+
+        while (!aux.getNombreCarpeta().equals(nombreCarpeta)) {
+            aux = aux.getNext();
+        }
+
+        aux.getArchivos().insertar(nombreArchivo, extension, contenido);
+
+    }
+
+    public void arbolArchivo(String nombreCarpeta) throws IOException {
+        nodoCarpeta aux = this.inicio;
+
+        while (!aux.getNombreCarpeta().equals(nombreCarpeta)) {
+            aux = aux.getNext();
+        }
+
+        aux.getArchivos().graficar();
+
     }
 
 }

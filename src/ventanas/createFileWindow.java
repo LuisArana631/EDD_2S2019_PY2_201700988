@@ -145,15 +145,10 @@ public class createFileWindow extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         String nombreArchivo = txtNombre.getText();
         String contenido = txtContenido.getText();
-
-        System.out.println("nombre \"" + nombreArchivo + "\"");
-        System.out.println("contenido\"" + contenido + "\"");
-
+        
         if (!nombreArchivo.equals("") && !nombreArchivo.equals("Nombre del archivo") && !contenido.equals("") && !contenido.equals("Contenido del archivo")) {
             try {
                 String[] datos = nombreArchivo.split("\\.", 2);
-                System.out.println("nombre: " + datos[0]);
-                System.out.println("extension: " + datos[1]);
                 SoftwareEDDDriver.usuarios.insertarArchivo(datos[0], datos[1], contenido, SoftwareEDDDriver.folderLog, SoftwareEDDDriver.userLog);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el archivo, nombre incorrecto.", "Error con archivo.", JOptionPane.ERROR_MESSAGE);

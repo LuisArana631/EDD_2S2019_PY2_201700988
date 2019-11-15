@@ -10,6 +10,7 @@ public class SoftwareEDDDriver {
     //Nombre de usuario y carpeta actual
     public static String userLog = "Luis";
     public static String folderLog = "";
+    public static String prevFolder = "";
     public static String fileLog = "";
     //Estructuras globales
     public static pila bitacora = new pila();

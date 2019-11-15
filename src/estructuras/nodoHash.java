@@ -28,7 +28,7 @@ public class nodoHash {
         String date  = dateHour.format(datePull);        
         this.timeStamp = date;        
         //Agregar carpeta inicial
-        this.carpetas.insertar("raiz");
+        this.carpetas.insertar("raiz","");
     }
     
     private String encriptarContraseña(String password){

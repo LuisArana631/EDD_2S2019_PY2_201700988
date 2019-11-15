@@ -167,7 +167,7 @@ public class avlArchivo {
             }
 
             //Escribimos dentro del archivo .dot
-            try (PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
                 write.println("digraph ArbolArchivos{");
                 write.println("node [shape=record, height=.1];");
                 write.close();
@@ -179,7 +179,7 @@ public class avlArchivo {
             crearArbol(this.raiz, pathDot);
 
             //Terminamos de escribir el codigo
-            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
+            try ( FileWriter escribir = new FileWriter(pathDot, true);  PrintWriter write = new PrintWriter(escribir)) {
                 write.println("label= \"Reporte de archivos\";");
                 write.println("}");
                 write.close();
@@ -199,7 +199,7 @@ public class avlArchivo {
             }
 
             //Escribir estructura del archivo html
-            try (PrintWriter write = new PrintWriter(htmlArchivo, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(htmlArchivo, "UTF-8")) {
                 write.println("<html>");
                 write.println("<head>");
                 write.println("<title> Reporte de archivos </title>");
@@ -232,7 +232,7 @@ public class avlArchivo {
             crearArbol(nodo.getLeft(), pathDot);
 
             //Escribimos dentro del archivo .dot
-            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
+            try ( FileWriter escribir = new FileWriter(pathDot, true);  PrintWriter write = new PrintWriter(escribir)) {
                 write.println("node" + nodo.getNombre() + "[label = \"<f0> |<f1> " + nodo.getNombre() + "." + nodo.getExtension() + "\\n" + nodo.getContenido() + "\\n" + nodo.getAltura() + "\\n" + nodo.getPropietario() + "\\n" + nodo.getTimeStamp() + "|<f2> \"];");
 
                 //Validar hijo izquierdo
@@ -372,7 +372,7 @@ public class avlArchivo {
                 archivo.createNewFile();
             }
 
-            try (PrintWriter write = new PrintWriter(path, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(path, "UTF-8")) {
                 write.println(nodo.getContenido());
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
@@ -392,7 +392,7 @@ public class avlArchivo {
 
             mostrarBotones(nodo.getLeft(), panel, x, y, conteo, file);
 
-            if (nodo.getLeft() != null) {                
+            if (nodo.getLeft() != null) {
                 if (conteo < 4) {
                     x += 90;
                 } else {
@@ -402,12 +402,7 @@ public class avlArchivo {
                 }
                 conteo++;
             }
-
-            System.out.println("-----------");
-            System.out.println("Boton " + nodo.getNombre() + "." + nodo.getExtension());
-            System.out.println("x: " + x);
-            System.out.println("y: " + y);
-            System.out.println("-----------");
+            
             //Crear el botonaso            
             JButton botonCarpeta = new JButton();
             botonCarpeta.setBounds(x, y, 80, 70);

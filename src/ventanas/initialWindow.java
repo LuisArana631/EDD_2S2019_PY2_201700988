@@ -191,6 +191,11 @@ public class initialWindow extends javax.swing.JFrame {
         btnRegresarCarpeta.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresarCarpeta.setText("Regresar Carpeta");
         btnRegresarCarpeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresarCarpeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarCarpetaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -253,23 +258,31 @@ public class initialWindow extends javax.swing.JFrame {
                 SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Crear carpeta.");
             }
         } catch (Exception e) {
-            
+
         }
     }//GEN-LAST:event_btnCrearCarpetaActionPerformed
 
     private void btnCrearArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearArchivoActionPerformed
         createFileWindow creadorArchivo = new createFileWindow();
         creadorArchivo.setVisible(true);
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_btnCrearArchivoActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         reportesWindow report = new reportesWindow();
         report.setVisible(true);
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_btnReportesActionPerformed
+
+    private void btnRegresarCarpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarCarpetaActionPerformed
+        if (!"raiz".equals(SoftwareEDDDriver.folderLog)) {
+            panelVisual.removeAll();
+            SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.prevFolder, panelVisual);
+        }
+        panelVisual.repaint();
+    }//GEN-LAST:event_btnRegresarCarpetaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -39,11 +39,11 @@ public class listaDobleCarpeta {
         }
 
         aux.insertarCarpetaEnlazada(nombreCarpeta);
-        insertar(nombreCarpeta);
+        insertar(nombreCarpeta, nombreDestino);
     }
 
-    public void insertar(String nombreCarpeta) {
-        nodoCarpeta nuevo = new nodoCarpeta(nombreCarpeta);
+    public void insertar(String nombreCarpeta, String carpetaPrev) {
+        nodoCarpeta nuevo = new nodoCarpeta(nombreCarpeta, carpetaPrev);
 
         if (listaVacia() != true) {
             this.fin.setNext(nuevo);
@@ -102,12 +102,13 @@ public class listaDobleCarpeta {
 
         //Crear icono de la carpeta        
         ImageIcon folder = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
-
+        SoftwareEDDDriver.prevFolder = aux.getCarpetaPrev();
+        
         //Cargar todas las carpetas al panel
         nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();
 
-        while (temp != null) {
-
+        while (temp != null) {            
+            
             //Crear el boton
             JButton botonCarpeta = new JButton();
             botonCarpeta.setBounds(x, y, 80, 70);

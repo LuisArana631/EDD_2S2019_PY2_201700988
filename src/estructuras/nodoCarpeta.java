@@ -3,18 +3,30 @@ package estructuras;
 public class nodoCarpeta {
 
     private String nombreCarpeta;
+    private String carpetaPrev;
     private listaSimpleCarpeta carpetas;
     private avlArchivo archivos;
     private nodoCarpeta next;
     private nodoCarpeta previous;
 
-    public nodoCarpeta(String nombreCarpeta) {
+    public nodoCarpeta(String nombreCarpeta, String carpetaPrev) {
         this.nombreCarpeta = nombreCarpeta;
         this.archivos = new avlArchivo();
         this.carpetas = new listaSimpleCarpeta();
+        this.carpetaPrev = carpetaPrev;
         this.next = null;
         this.previous = null;
     }        
+
+    public String getCarpetaPrev() {
+        return carpetaPrev;
+    }
+
+    public void setCarpetaPrev(String carpetaPrev) {
+        this.carpetaPrev = carpetaPrev;
+    }
+    
+    
     
     public void insertarCarpetaEnlazada(String nombre){
         this.carpetas.insertar(nombre);

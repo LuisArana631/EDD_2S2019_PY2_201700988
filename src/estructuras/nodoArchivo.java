@@ -9,6 +9,7 @@ public class nodoArchivo {
     private String propietario;
     private nodoArchivo left;
     private nodoArchivo right;
+    private nodoArchivo siguiente;
     private int altura;
 
     public nodoArchivo(String nombre, String extension, String contenido, String propietario, String timeStamp) {
@@ -20,8 +21,17 @@ public class nodoArchivo {
         this.altura = 0;
         this.left = null;
         this.right = null;
+        this.siguiente = null;
     }
 
+    public nodoArchivo getSiguiente() {
+        return siguiente;
+    }
+
+    public void setSiguiente(nodoArchivo siguiente) {
+        this.siguiente = siguiente;
+    }
+        
     public String getExtension() {
         return this.extension;
     }

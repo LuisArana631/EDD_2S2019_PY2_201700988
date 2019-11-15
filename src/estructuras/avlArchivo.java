@@ -31,6 +31,18 @@ public class avlArchivo {
 
     private nodoArchivo raiz;
 
+    public avlArchivo() {
+        this.raiz = null;
+    }
+
+    public nodoArchivo getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(nodoArchivo raiz) {
+        this.raiz = raiz;
+    }
+
     private boolean arbolVacio() {
         return this.raiz == null;
     }
@@ -384,15 +396,56 @@ public class avlArchivo {
     }
 
     public void crearBotones(JPanel panel, int x, int y, int conteo, ImageIcon file) {
-        mostrarBotones(this.raiz, panel, x, y, conteo, file);
-    }
+        nodoArchivo aux = this.raiz;
+        pilaArchivo pila = new pilaArchivo();
 
-    private void mostrarBotones(nodoArchivo nodo, JPanel panel, int x, int y, int conteo, ImageIcon file) {
-        if (nodo != null) {
+        do {
+            if (!pila.vacio() && aux == null) {
+                //Crear el botonaso            
+                JButton botonCarpeta = new JButton();
+                botonCarpeta.setBounds(x, y, 80, 70);
+                botonCarpeta.setContentAreaFilled(false);
+                botonCarpeta.setBorderPainted(false);
+                botonCarpeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                //Insertar imagen al boton
+                botonCarpeta.setIcon(new ImageIcon(file.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+                botonCarpeta.setBackground(Color.white);
+                //Insertar texto al boton
+                botonCarpeta.setText(pila.getInicio().getNombre() + "." + pila.getInicio().getExtension());
+                botonCarpeta.setHorizontalTextPosition(SwingConstants.CENTER);
+                botonCarpeta.setVerticalTextPosition(SwingConstants.BOTTOM);
+                botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
+                //Menu popup
+                JPopupMenu menuPop = new JPopupMenu();
+                JMenuItem modificar = new JMenuItem("Modificar");
+                JMenuItem eliminar = new JMenuItem("Eliminar");
+                JMenuItem compartir = new JMenuItem("Compartir");
+                menuPop.add(compartir);
+                menuPop.add(modificar);
+                menuPop.add(eliminar);
+                //Añadir click listener al boton
+                botonCarpeta.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        if ((e.getModifiers() & 4) != 0) {
+                            menuPop.show(botonCarpeta, e.getX(), e.getY());
+                        }
+                    }
+                });
+                botonCarpeta.add(menuPop);
+                //ActionListener del boton
+                ActionListener listen = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
 
-            mostrarBotones(nodo.getLeft(), panel, x, y, conteo, file);
+                    }
+                };
+                botonCarpeta.addActionListener(listen);
 
-            if (nodo.getLeft() != null) {
+                //Agregar boton al panel
+                panel.add(botonCarpeta);
+                //Siguiente archivo            
+                panel.repaint();
+
                 if (conteo < 4) {
                     x += 90;
                 } else {
@@ -402,65 +455,94 @@ public class avlArchivo {
                 }
                 conteo++;
             }
-            
-            //Crear el botonaso            
-            JButton botonCarpeta = new JButton();
-            botonCarpeta.setBounds(x, y, 80, 70);
-            botonCarpeta.setContentAreaFilled(false);
-            botonCarpeta.setBorderPainted(false);
-            botonCarpeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            //Insertar imagen al boton
-            botonCarpeta.setIcon(new ImageIcon(file.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-            botonCarpeta.setBackground(Color.white);
-            //Insertar texto al boton
-            botonCarpeta.setText(nodo.getNombre() + "." + nodo.getExtension());
-            botonCarpeta.setHorizontalTextPosition(SwingConstants.CENTER);
-            botonCarpeta.setVerticalTextPosition(SwingConstants.BOTTOM);
-            botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
-            //Menu popup
-            JPopupMenu menuPop = new JPopupMenu();
-            JMenuItem modificar = new JMenuItem("Modificar");
-            JMenuItem eliminar = new JMenuItem("Eliminar");
-            JMenuItem compartir = new JMenuItem("Compartir");
-            menuPop.add(compartir);
-            menuPop.add(modificar);
-            menuPop.add(eliminar);
-            //Añadir click listener al boton
-            botonCarpeta.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    if ((e.getModifiers() & 4) != 0) {
-                        menuPop.show(botonCarpeta, e.getX(), e.getY());
-                    }
-                }
-            });
-            botonCarpeta.add(menuPop);
-            //ActionListener del boton
-            ActionListener listen = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            };
-            botonCarpeta.addActionListener(listen);
-
-            //Agregar boton al panel
-            panel.add(botonCarpeta);
-            //Siguiente archivo            
-            panel.repaint();
-
-            if (conteo < 4) {
-                x += 90;
-            } else {
-                y += 80;
-                x = 10;
-                conteo = 0;
+            if (aux != null) {
+                pila.push(aux);
+                aux = aux.getLeft();
+            } else if (!pila.vacio()) {
+                aux = pila.getInicio();
+                pila.pop();
+                aux = aux.getRight();
             }
-            conteo++;
-
-            mostrarBotones(nodo.getRight(), panel, x, y, conteo, file);
-
-        }
-
+        } while (!pila.vacio() || aux != null);
     }
 
+//
+//    public void crearBotones(JPanel panel, int x, int y, int conteo, ImageIcon file) {
+//        //Crear botones
+//        mostrarBotones(this.raiz, panel, x, y, conteo, file);
+//    }
+//
+//    private void mostrarBotones(nodoArchivo nodo, JPanel panel, int x, int y, int conteo, ImageIcon file) {
+//        if (nodo != null) {
+//
+//            //Crear el botonaso            
+//            JButton botonCarpeta = new JButton();
+//            botonCarpeta.setBounds(x, y, 80, 70);
+//            botonCarpeta.setContentAreaFilled(false);
+//            botonCarpeta.setBorderPainted(false);
+//            botonCarpeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//            //Insertar imagen al boton
+//            botonCarpeta.setIcon(new ImageIcon(file.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+//            botonCarpeta.setBackground(Color.white);
+//            //Insertar texto al boton
+//            botonCarpeta.setText(nodo.getNombre() + "." + nodo.getExtension());
+//            botonCarpeta.setHorizontalTextPosition(SwingConstants.CENTER);
+//            botonCarpeta.setVerticalTextPosition(SwingConstants.BOTTOM);
+//            botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
+//            //Menu popup
+//            JPopupMenu menuPop = new JPopupMenu();
+//            JMenuItem modificar = new JMenuItem("Modificar");
+//            JMenuItem eliminar = new JMenuItem("Eliminar");
+//            JMenuItem compartir = new JMenuItem("Compartir");
+//            menuPop.add(compartir);
+//            menuPop.add(modificar);
+//            menuPop.add(eliminar);
+//            //Añadir click listener al boton
+//            botonCarpeta.addMouseListener(new MouseAdapter() {
+//                public void mouseClicked(MouseEvent e) {
+//                    if ((e.getModifiers() & 4) != 0) {
+//                        menuPop.show(botonCarpeta, e.getX(), e.getY());
+//                    }
+//                }
+//            });
+//            botonCarpeta.add(menuPop);
+//            //ActionListener del boton
+//            ActionListener listen = new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//
+//                }
+//            };
+//            botonCarpeta.addActionListener(listen);
+//
+//            //Agregar boton al panel
+//            panel.add(botonCarpeta);
+//            //Siguiente archivo            
+//            panel.repaint();
+//
+//            if (conteo < 4) {
+//                x += 90;
+//            } else {
+//                y += 80;
+//                x = 10;
+//                conteo = 0;
+//            }
+//            conteo++;
+//
+//            mostrarBotones(nodo.getLeft(), panel, x, y, conteo, file);
+//
+//            if (conteo < 4) {
+//                x += 90;
+//            } else {
+//                y += 80;
+//                x = 10;
+//                conteo = 0;
+//            }
+//            conteo++;
+//
+//            mostrarBotones(nodo.getRight(), panel, x, y, conteo, file);
+//
+//        }
+//
+//    }
 }

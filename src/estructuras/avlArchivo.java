@@ -179,7 +179,7 @@ public class avlArchivo {
             }
 
             //Escribimos dentro del archivo .dot
-            try ( PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
+            try (PrintWriter write = new PrintWriter(pathDot, "UTF-8")) {
                 write.println("digraph ArbolArchivos{");
                 write.println("node [shape=record, height=.1];");
                 write.close();
@@ -191,7 +191,7 @@ public class avlArchivo {
             crearArbol(this.raiz, pathDot);
 
             //Terminamos de escribir el codigo
-            try ( FileWriter escribir = new FileWriter(pathDot, true);  PrintWriter write = new PrintWriter(escribir)) {
+            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
                 write.println("label= \"Reporte de archivos\";");
                 write.println("}");
                 write.close();
@@ -211,7 +211,7 @@ public class avlArchivo {
             }
 
             //Escribir estructura del archivo html
-            try ( PrintWriter write = new PrintWriter(htmlArchivo, "UTF-8")) {
+            try (PrintWriter write = new PrintWriter(htmlArchivo, "UTF-8")) {
                 write.println("<html>");
                 write.println("<head>");
                 write.println("<title> Reporte de archivos </title>");
@@ -244,8 +244,8 @@ public class avlArchivo {
             crearArbol(nodo.getLeft(), pathDot);
 
             //Escribimos dentro del archivo .dot
-            try ( FileWriter escribir = new FileWriter(pathDot, true);  PrintWriter write = new PrintWriter(escribir)) {
-                write.println("node" + nodo.getNombre() + "[label = \"<f0> |<f1> " + nodo.getNombre() + "." + nodo.getExtension() + "\\n" + nodo.getContenido() + "\\n" + nodo.getAltura() + "\\n" + nodo.getPropietario() + "\\n" + nodo.getTimeStamp() + "|<f2> \"];");
+            try (FileWriter escribir = new FileWriter(pathDot, true); PrintWriter write = new PrintWriter(escribir)) {
+                write.println("\"node" + nodo.getNombre() + "\"[label = \"<f0> |<f1> " + nodo.getNombre() + "." + nodo.getExtension() + "\\n" + nodo.getContenido() + "\\n" + nodo.getAltura() + "\\n" + nodo.getPropietario() + "\\n" + nodo.getTimeStamp() + "|<f2> \"];");
 
                 //Validar hijo izquierdo
                 if (nodo.getLeft() != null) {
@@ -289,8 +289,7 @@ public class avlArchivo {
             nodo.setRight(eliminar(nodo.getRight(), nombre));
             //Nodo correcto
         } else //Si el nodo a borrar tiene hijos
-        {
-            if (nodo.getLeft() == null && nodo.getRight() == null) {
+         if (nodo.getLeft() == null && nodo.getRight() == null) {
                 return null;
                 //Si el nodo a borrar tiene hijo derecho
             } else if (nodo.getLeft() == null) {
@@ -312,7 +311,6 @@ public class avlArchivo {
                 nodo.setPropietario(aux.getPropietario());
                 nodo.setLeft(eliminar(nodo.getLeft(), aux.getNombre()));
             }
-        }
 
         nodo.setAltura(Math.max(altura(nodo.getLeft()), altura(nodo.getRight())) + 1);
 
@@ -384,7 +382,7 @@ public class avlArchivo {
                 archivo.createNewFile();
             }
 
-            try ( PrintWriter write = new PrintWriter(path, "UTF-8")) {
+            try (PrintWriter write = new PrintWriter(path, "UTF-8")) {
                 write.println(nodo.getContenido());
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
@@ -399,8 +397,11 @@ public class avlArchivo {
         nodoArchivo aux = this.raiz;
         pilaArchivo pila = new pilaArchivo();
 
+        System.out.println("--------------");
+
         do {
             if (!pila.vacio() && aux == null) {
+                System.out.println("Creando boton " + pila.getInicio().getNombre());
                 //Crear el botonaso            
                 JButton botonCarpeta = new JButton();
                 botonCarpeta.setBounds(x, y, 80, 70);
@@ -465,84 +466,4 @@ public class avlArchivo {
             }
         } while (!pila.vacio() || aux != null);
     }
-
-//
-//    public void crearBotones(JPanel panel, int x, int y, int conteo, ImageIcon file) {
-//        //Crear botones
-//        mostrarBotones(this.raiz, panel, x, y, conteo, file);
-//    }
-//
-//    private void mostrarBotones(nodoArchivo nodo, JPanel panel, int x, int y, int conteo, ImageIcon file) {
-//        if (nodo != null) {
-//
-//            //Crear el botonaso            
-//            JButton botonCarpeta = new JButton();
-//            botonCarpeta.setBounds(x, y, 80, 70);
-//            botonCarpeta.setContentAreaFilled(false);
-//            botonCarpeta.setBorderPainted(false);
-//            botonCarpeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//            //Insertar imagen al boton
-//            botonCarpeta.setIcon(new ImageIcon(file.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-//            botonCarpeta.setBackground(Color.white);
-//            //Insertar texto al boton
-//            botonCarpeta.setText(nodo.getNombre() + "." + nodo.getExtension());
-//            botonCarpeta.setHorizontalTextPosition(SwingConstants.CENTER);
-//            botonCarpeta.setVerticalTextPosition(SwingConstants.BOTTOM);
-//            botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
-//            //Menu popup
-//            JPopupMenu menuPop = new JPopupMenu();
-//            JMenuItem modificar = new JMenuItem("Modificar");
-//            JMenuItem eliminar = new JMenuItem("Eliminar");
-//            JMenuItem compartir = new JMenuItem("Compartir");
-//            menuPop.add(compartir);
-//            menuPop.add(modificar);
-//            menuPop.add(eliminar);
-//            //Añadir click listener al boton
-//            botonCarpeta.addMouseListener(new MouseAdapter() {
-//                public void mouseClicked(MouseEvent e) {
-//                    if ((e.getModifiers() & 4) != 0) {
-//                        menuPop.show(botonCarpeta, e.getX(), e.getY());
-//                    }
-//                }
-//            });
-//            botonCarpeta.add(menuPop);
-//            //ActionListener del boton
-//            ActionListener listen = new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//
-//                }
-//            };
-//            botonCarpeta.addActionListener(listen);
-//
-//            //Agregar boton al panel
-//            panel.add(botonCarpeta);
-//            //Siguiente archivo            
-//            panel.repaint();
-//
-//            if (conteo < 4) {
-//                x += 90;
-//            } else {
-//                y += 80;
-//                x = 10;
-//                conteo = 0;
-//            }
-//            conteo++;
-//
-//            mostrarBotones(nodo.getLeft(), panel, x, y, conteo, file);
-//
-//            if (conteo < 4) {
-//                x += 90;
-//            } else {
-//                y += 80;
-//                x = 10;
-//                conteo = 0;
-//            }
-//            conteo++;
-//
-//            mostrarBotones(nodo.getRight(), panel, x, y, conteo, file);
-//
-//        }
-//
-//    }
 }

@@ -131,6 +131,7 @@ public class listaDobleCarpeta {
             menuPop.add(eliminar);
             //Añadir click listener al boton
             botonCarpeta.addMouseListener(new MouseAdapter() {
+                @Override
                 public void mouseClicked(MouseEvent e) {
                     if ((e.getModifiers() & 4) != 0) {
                         menuPop.show(botonCarpeta, e.getX(), e.getY());
@@ -139,15 +140,11 @@ public class listaDobleCarpeta {
             });
             botonCarpeta.add(menuPop);
             //ActionListener del boton
-            ActionListener listen = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    SoftwareEDDDriver.folderLog = botonCarpeta.getText();
-                    panel.removeAll();
-                    visualizarCarpeta(panel, botonCarpeta.getText());
-                    panel.repaint();
-
-                }
+            ActionListener listen = (ActionEvent e) -> {
+                SoftwareEDDDriver.folderLog = botonCarpeta.getText();
+                panel.removeAll();
+                visualizarCarpeta(panel, botonCarpeta.getText());
+                panel.repaint();
             };
             botonCarpeta.addActionListener(listen);
             //Funcion de ingresar a carpeta
@@ -188,6 +185,8 @@ public class listaDobleCarpeta {
         aux.getArchivos().insertar(nombreArchivo, extension, contenido);
 
     }
+    
+    
 
     public void arbolArchivo(String nombreCarpeta) throws IOException {
         nodoCarpeta aux = this.inicio;

@@ -267,7 +267,7 @@ public class initialWindow extends javax.swing.JFrame {
                 panelVisual.removeAll();
                 SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, panelVisual);
                 panelVisual.repaint();
-                SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Crear carpeta.");
+                SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Creó la carpeta  "+ nuevaCarpeta+ ".");
             }
         } catch (Exception e) {
 
@@ -277,7 +277,7 @@ public class initialWindow extends javax.swing.JFrame {
     private void btnCrearArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearArchivoActionPerformed
         createFileWindow creadorArchivo = new createFileWindow();
         creadorArchivo.setVisible(true);
-
+        
         this.setVisible(false);
     }//GEN-LAST:event_btnCrearArchivoActionPerformed
 
@@ -313,7 +313,7 @@ public class initialWindow extends javax.swing.JFrame {
         try {
             String ruta = buscador.getSelectedFile().getAbsolutePath();
             FileInputStream archivoCarga = new FileInputStream(ruta);
-            try ( DataInputStream entradaDatos = new DataInputStream(archivoCarga)) {
+            try (DataInputStream entradaDatos = new DataInputStream(archivoCarga)) {
                 BufferedReader buffer = new BufferedReader(new InputStreamReader(entradaDatos));
                 String linea;
 
@@ -333,29 +333,37 @@ public class initialWindow extends javax.swing.JFrame {
                                 }
                             } else if (exten == true) {
                                 //Llena la extension si no hay comas o comillas
-                                if (letra == 59 || letra == 44) {
-                                    exten = false;
+                                if (letra == 59 || letra == 24) {
                                     cont = true;
-                                } else {
-                                    if (letra == 32) {
-                                        //Ignorar
-                                    } else {
-                                        extension += letra;
-                                    }
+                                    exten = false;
+                                } else if (Character.isLetter(letra)) {
+                                    extension += letra;
                                 }
                             } else if (cont == true) {
                                 //Solo llena el contenido si no hay comillas
                                 if (letra == 34) {
-                                    contenido += letra;
+                                    //No hacer nada
+                                } else {
+                                    contenido+= letra;
                                 }
                             }
                         }
 
                     }
 
+                    if (lineasConteo > 0) {
+                        //Insertar el archivo al avl                        
+                        SoftwareEDDDriver.usuarios.insertarArchivo(nombre, extension, contenido, SoftwareEDDDriver.folderLog, SoftwareEDDDriver.userLog);
+                        conteo++;
+                    }
+
                     lineasConteo++;
-                    //Insertar el archivo al avl
-                    SoftwareEDDDriver.usuarios.insertarArchivo(nombre, extension, contenido, SoftwareEDDDriver.folderLog, SoftwareEDDDriver.userLog);
+
+                    //Limpiar variables
+                    nombre = "";
+                    extension = "";
+                    contenido = "";
+                    archivo = true;
 
                 }
 
@@ -366,6 +374,10 @@ public class initialWindow extends javax.swing.JFrame {
         }
 
         SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Carga masiva de archivos.");
+
+        panelVisual.removeAll();
+        SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, panelVisual);
+        panelVisual.repaint();
     }//GEN-LAST:event_btnSubirArchivoActionPerformed
 
     /**

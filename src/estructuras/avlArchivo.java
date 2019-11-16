@@ -17,6 +17,8 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -289,7 +291,8 @@ public class avlArchivo {
             nodo.setRight(eliminar(nodo.getRight(), nombre));
             //Nodo correcto
         } else //Si el nodo a borrar tiene hijos
-         if (nodo.getLeft() == null && nodo.getRight() == null) {
+        {
+            if (nodo.getLeft() == null && nodo.getRight() == null) {
                 return null;
                 //Si el nodo a borrar tiene hijo derecho
             } else if (nodo.getLeft() == null) {
@@ -311,6 +314,7 @@ public class avlArchivo {
                 nodo.setPropietario(aux.getPropietario());
                 nodo.setLeft(eliminar(nodo.getLeft(), aux.getNombre()));
             }
+        }
 
         nodo.setAltura(Math.max(altura(nodo.getLeft()), altura(nodo.getRight())) + 1);
 
@@ -393,15 +397,33 @@ public class avlArchivo {
         }
     }
 
+    private String contenidoArchivo(String archivo) {
+        String contenido = "";
+
+        nodoArchivo aux = this.raiz;
+
+        while (!aux.getNombre().equals(archivo)) {
+            //Si el nombre es menor al nodo evaluado ir izquierda
+            if (archivo.compareTo(aux.getNombre()) < 0) {
+                aux = aux.getLeft();
+                //Si el nombre es mayor al nodo evaluado ir derecha
+            } else if (archivo.compareTo(aux.getNombre()) > 0) {
+                aux = aux.getRight();
+                //Si el nombre es igual al nodo evaluado actualizar contenido
+            } else {
+                contenido = aux.getContenido();
+            }
+        }
+
+        return contenido;
+    }
+
     public void crearBotones(JPanel panel, int x, int y, int conteo, ImageIcon file) {
         nodoArchivo aux = this.raiz;
         pilaArchivo pila = new pilaArchivo();
 
-        System.out.println("--------------");
-
         do {
             if (!pila.vacio() && aux == null) {
-                System.out.println("Creando boton " + pila.getInicio().getNombre());
                 //Crear el botonaso            
                 JButton botonCarpeta = new JButton();
                 botonCarpeta.setBounds(x, y, 80, 70);
@@ -418,14 +440,62 @@ public class avlArchivo {
                 botonCarpeta.setFont(new Font("Microsoft YaHei UI Light", 1, 9));
                 //Menu popup
                 JPopupMenu menuPop = new JPopupMenu();
-                JMenuItem modificar = new JMenuItem("Modificar");
                 JMenuItem eliminar = new JMenuItem("Eliminar");
                 JMenuItem compartir = new JMenuItem("Compartir");
+                JMenuItem descargar = new JMenuItem("Descargar");
+                menuPop.add(descargar);
                 menuPop.add(compartir);
-                menuPop.add(modificar);
                 menuPop.add(eliminar);
+                //Funcion de eliminar archivo
+                eliminar.addActionListener((ActionEvent e) -> {
+                    //Separar el nombre del archivo
+                    String name = botonCarpeta.getText();
+                    String[] datos = name.split("\\.", 2);
+                    //Eliminar el nodo
+                    SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Eliminó el archivo " + name + ".");
+                    delete(datos[0]);
+                    //Repintar el panel
+                    panel.removeAll();
+                    SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, panel);
+                    panel.repaint();
+                });
+                //Funcion de descargar archivo
+                descargar.addActionListener((ActionEvent e) -> {
+                    //Separar el nombre del archivo
+                    String name = botonCarpeta.getText();
+                    String[] datos = name.split("\\.", 2);
+                    try {
+                        //Descargar el archivo
+                        descargar(datos[0]);
+                        SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Descargó el archivo " + name + ".");
+                    } catch (IOException ex) {
+                        Logger.getLogger(avlArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+                //Funcion de compartir archivo
+                compartir.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        //Separar el nombre del archivo
+                        String name = botonCarpeta.getText();
+                        String[] datos = name.split("\\.", 2);
+                        //JOptionPane para seleccionar usuario destino      
+                        try {
+                            String[] mostrarUsuarios = SoftwareEDDDriver.usuarios.usuariosCbo(SoftwareEDDDriver.userLog);
+                            String destino = (String) JOptionPane.showInputDialog(null, "Selecciona un usuario.", "Usuario destino.", JOptionPane.QUESTION_MESSAGE, null, mostrarUsuarios, mostrarUsuarios[0]);
+                            if (!destino.equals("null")) {
+                                SoftwareEDDDriver.usuarios.insertarArchivo(datos[0], datos[1], "", "raiz", destino);
+                                JOptionPane.showMessageDialog(null, "Archivo enviado con exito.", "Se ha enviado el archivo.", JOptionPane.INFORMATION_MESSAGE);
+                                SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Compartio el archivo "+name+" con " +destino+".");
+                            }
+                        } catch (Exception error) {
+                            JOptionPane.showMessageDialog(null, "No hay usuarios para compartir en el sistema.", "No hay usuarios.", JOptionPane.WARNING_MESSAGE);
+                        }
+
+                    }
+                });
                 //Añadir click listener al boton
                 botonCarpeta.addMouseListener(new MouseAdapter() {
+                    @Override
                     public void mouseClicked(MouseEvent e) {
                         if ((e.getModifiers() & 4) != 0) {
                             menuPop.show(botonCarpeta, e.getX(), e.getY());
@@ -434,11 +504,7 @@ public class avlArchivo {
                 });
                 botonCarpeta.add(menuPop);
                 //ActionListener del boton
-                ActionListener listen = new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                    }
+                ActionListener listen = (ActionEvent e) -> {
                 };
                 botonCarpeta.addActionListener(listen);
 

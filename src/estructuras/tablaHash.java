@@ -454,7 +454,7 @@ public class tablaHash {
         if (this.usuarios[indice] != null) {
             this.usuarios[indice].getCarpetas().carpetaInterior(nuevaCarpeta, carpetaActual);
         }
-        
+
     }
 
     public void mostrarContenido(String user, String carpeta, JPanel panel) {
@@ -467,7 +467,7 @@ public class tablaHash {
             if (this.usuarios[indice] != null) {
                 if (this.usuarios[indice].getUserS().equals(user)) {
                     //Si encontramos al usuario
-                    this.usuarios[indice].getCarpetas().visualizarCarpeta(panel, carpeta);                    
+                    this.usuarios[indice].getCarpetas().visualizarCarpeta(panel, carpeta);
                     return;
                 } else {
                     intento++;
@@ -502,11 +502,11 @@ public class tablaHash {
 
         if (this.usuarios[indice] != null) {
             //Si encontramos al usuario
-            this.usuarios[indice].getCarpetas().visualizarCarpeta(panel, carpeta);            
+            this.usuarios[indice].getCarpetas().visualizarCarpeta(panel, carpeta);
         }
-        
+
     }
-    
+
     public void insertarArchivo(String nombreArchivo, String extension, String contenido, String carpeta, String user) {
         int userVerificar = codificarUser(user);
         int intento = 0;
@@ -553,9 +553,25 @@ public class tablaHash {
         if (this.usuarios[indice] != null) {
             this.usuarios[indice].getCarpetas().insertarArchivo(nombreArchivo, extension, contenido, carpeta);
         }
-        
+
     }
-    
+
+    public String[] usuariosCbo(String user) {
+        String[] usuarioCbo = new String[this.cantidad - 1];
+        int conteo = 0;
+
+        for (int i = 0; i < this.longitud; i++) {
+            if (this.usuarios[i] != null) {
+                if (!this.usuarios[i].getUserS().equals(user)) {
+                    usuarioCbo[conteo] = this.usuarios[i].getUserS();
+                    conteo++;
+                }
+            }
+        }
+
+        return usuarioCbo;
+    }
+
     public void avlArchivo(String carpeta, String user) throws IOException {
         int userVerificar = codificarUser(user);
         int intento = 0;
@@ -602,7 +618,7 @@ public class tablaHash {
         if (this.usuarios[indice] != null) {
             this.usuarios[indice].getCarpetas().arbolArchivo(carpeta);
         }
-        
+
     }
-    
+
 }

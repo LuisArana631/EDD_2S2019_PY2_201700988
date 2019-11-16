@@ -1,5 +1,12 @@
 package ventanas;
 
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -149,6 +156,11 @@ public class initialWindow extends javax.swing.JFrame {
         btnSubirArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirArchivo.setText("Subir");
         btnSubirArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSubirArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirArchivoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -283,6 +295,78 @@ public class initialWindow extends javax.swing.JFrame {
         }
         panelVisual.repaint();
     }//GEN-LAST:event_btnRegresarCarpetaActionPerformed
+
+    private void btnSubirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirArchivoActionPerformed
+        //Variable para manejar archivos
+        boolean archivo = true;
+        boolean exten = false;
+        boolean cont = false;
+        String nombre = "";
+        String extension = "";
+        String contenido = "";
+        int conteo = 0;
+        int lineasConteo = 0;
+        //File chooser de archivos
+        JFileChooser buscador = new JFileChooser();
+        buscador.showOpenDialog(buscador);
+        //Intentar cargar archivo
+        try {
+            String ruta = buscador.getSelectedFile().getAbsolutePath();
+            FileInputStream archivoCarga = new FileInputStream(ruta);
+            try ( DataInputStream entradaDatos = new DataInputStream(archivoCarga)) {
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(entradaDatos));
+                String linea;
+
+                while ((linea = buffer.readLine()) != null) {
+                    //Cargar archivo
+                    for (int i = 0; i < linea.length(); i++) {
+                        char letra = linea.charAt(i);
+
+                        if (lineasConteo > 0) {
+                            if (archivo == true) {
+                                //Llenar nombre si no hay puntos
+                                if (letra == 46) {
+                                    archivo = false;
+                                    exten = true;
+                                } else {
+                                    nombre += letra;
+                                }
+                            } else if (exten == true) {
+                                //Llena la extension si no hay comas o comillas
+                                if (letra == 59 || letra == 44) {
+                                    exten = false;
+                                    cont = true;
+                                } else {
+                                    if (letra == 32) {
+                                        //Ignorar
+                                    } else {
+                                        extension += letra;
+                                    }
+                                }
+                            } else if (cont == true) {
+                                //Solo llena el contenido si no hay comillas
+                                if (letra == 34) {
+                                    contenido += letra;
+                                }
+                            }
+                        }
+
+                    }
+
+                    lineasConteo++;
+                    //Insertar el archivo al avl
+                    SoftwareEDDDriver.usuarios.insertarArchivo(nombre, extension, contenido, SoftwareEDDDriver.folderLog, SoftwareEDDDriver.userLog);
+
+                }
+
+                JOptionPane.showMessageDialog(null, "Se han cargado " + conteo + " archivos.");
+            }
+        } catch (IOException | HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo de carga." + e, "Error con la lectura del archivo.", JOptionPane.ERROR_MESSAGE);
+        }
+
+        SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Carga masiva de archivos.");
+    }//GEN-LAST:event_btnSubirArchivoActionPerformed
 
     /**
      * @param args the command line arguments

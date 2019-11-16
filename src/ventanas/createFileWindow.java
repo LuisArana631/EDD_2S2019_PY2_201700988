@@ -22,9 +22,7 @@ public class createFileWindow extends javax.swing.JFrame {
 
     public createFileWindow() {
         initComponents();
-
-        place_holders();
-
+        
         this.setLocationRelativeTo(null);
 
         Date date = new Date();
@@ -48,9 +46,10 @@ public class createFileWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtContenido = new javax.swing.JTextArea();
         txtNombre = new javax.swing.JTextField();
-        btnAceptar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
         lblFondo1 = new javax.swing.JLabel();
         lblFondo2 = new javax.swing.JLabel();
 
@@ -103,17 +102,29 @@ public class createFileWindow extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 370, 260));
 
-        btnAceptar.setBackground(new java.awt.Color(56, 150, 201));
-        btnAceptar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
-        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar.setText("Aceptar");
-        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setBackground(new java.awt.Color(56, 150, 201));
+        btnModificar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("Modificar");
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 150, -1));
+        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 150, -1));
+
+        btnCrear.setBackground(new java.awt.Color(56, 150, 201));
+        btnCrear.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        btnCrear.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrear.setText("Crear");
+        btnCrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 150, -1));
 
         btnCancelar.setBackground(new java.awt.Color(56, 150, 201));
         btnCancelar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
@@ -127,11 +138,11 @@ public class createFileWindow extends javax.swing.JFrame {
         });
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 150, -1));
 
-        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Crear Archivo");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 230, 30));
+        lblTitulo.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Crear Archivo");
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 230, 30));
 
         lblFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/white.jpg"))); // NOI18N
         getContentPane().add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 390, 370));
@@ -142,7 +153,7 @@ public class createFileWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         String nombreArchivo = txtNombre.getText();
         String contenido = txtContenido.getText();
 
@@ -159,30 +170,51 @@ public class createFileWindow extends javax.swing.JFrame {
         } else {
             lblError.setText("*Debes completar los campos.");
         }
-
-
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     private void cambiarVentana() {
-        initialWindow inicial = new initialWindow();
+//        initialWindow inicial = new initialWindow();
 
         //Verificar el tipo de usuario que ingreso
-        if (SoftwareEDDDriver.userLog.equals("ADMIN")) {
-            inicial.btnAdministrador.setVisible(true);
-        } else {
-            inicial.btnAdministrador.setVisible(false);
-        }
+//        if (SoftwareEDDDriver.userLog.equals("ADMIN")) {
+//            inicial.btnAdministrador.setVisible(true);
+//        } else {
+//            inicial.btnAdministrador.setVisible(false);
+//        }
 
         //Mostrar el JFrame de la ventana inicial
-        SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, inicial.panelVisual);
-        inicial.setVisible(true);
-        inicial.lblUser.setText(SoftwareEDDDriver.userLog);
+//        SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, inicial.panelVisual);
+//        inicial.setVisible(true);
+//        inicial.lblUser.setText(SoftwareEDDDriver.userLog);
+        SoftwareEDDDriver.panel.removeAll();
+        SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, SoftwareEDDDriver.panel);
+        SoftwareEDDDriver.panel.repaint();
         this.setVisible(false);
     }
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         cambiarVentana();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        String nombreArchivo = txtNombre.getText();
+        String contenido = txtContenido.getText();
+
+        if (!nombreArchivo.equals("") && !nombreArchivo.equals("Nombre del archivo") && !contenido.equals("") && !contenido.equals("Contenido del archivo")) {
+            try {
+                String[] datos = nombreArchivo.split("\\.", 2);
+                SoftwareEDDDriver.usuarios.insertarArchivo(datos[0], datos[1], contenido, SoftwareEDDDriver.folderLog, SoftwareEDDDriver.userLog);
+                SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Modificó el archivo " + nombreArchivo + ".");
+                JOptionPane.showMessageDialog(null, "Modificación Realizada.", "Modificación exitosa.", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al modificar el archivo, nombre incorrecto.", "Error con archivo.", JOptionPane.ERROR_MESSAGE);
+            }
+
+            cambiarVentana();
+        } else {
+            lblError.setText("*Debes completar los campos.");
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,17 +252,18 @@ public class createFileWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JButton btnCrear;
+    public javax.swing.JButton btnModificar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblFondo1;
     private javax.swing.JLabel lblFondo2;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JLabel lblTimeStamp;
-    private javax.swing.JTextArea txtContenido;
-    private javax.swing.JTextField txtNombre;
+    public javax.swing.JLabel lblTimeStamp;
+    public javax.swing.JLabel lblTitulo;
+    public javax.swing.JTextArea txtContenido;
+    public javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

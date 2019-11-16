@@ -92,7 +92,7 @@ public class listaDobleCarpeta {
         //Variables de posicion
         int x = 10;
         int y = 20;
-        int conteo = 0;
+        int conteo = 1;
 
         //Buscar la carpeta a mostrar contenido
         nodoCarpeta aux = this.inicio;
@@ -150,7 +150,7 @@ public class listaDobleCarpeta {
             //Funcion de ingresar a carpeta
 
             //Evaluar posicion del boton siguiente                                   
-            if (conteo < 4) {
+            if (conteo < 5) {
                 x += 90;
             } else {
                 y += 80;

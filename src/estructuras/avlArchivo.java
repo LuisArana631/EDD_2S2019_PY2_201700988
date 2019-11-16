@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import software.edd.driver.SoftwareEDDDriver;
+import ventanas.createFileWindow;
 import ventanas.viewWindow;
 
 public class avlArchivo {
@@ -97,7 +98,7 @@ public class avlArchivo {
         DateFormat dateHour = new SimpleDateFormat("HH:mm:ss dd/MM/yy");
         String timeStamp = dateHour.format(datePull);
         //Enviar datos al metodo insert
-        this.raiz = insert(this.raiz, nombre, extension, contenido, timeStamp, SoftwareEDDDriver.userLog);
+        this.raiz = insert(this.raiz, nombre, extension, contenido, SoftwareEDDDriver.userLog, timeStamp);
     }
 
     private nodoArchivo insert(nodoArchivo nodo, String nombre, String extension, String contenido, String timeStamp, String propietario) {
@@ -291,8 +292,7 @@ public class avlArchivo {
             nodo.setRight(eliminar(nodo.getRight(), nombre));
             //Nodo correcto
         } else //Si el nodo a borrar tiene hijos
-        {
-            if (nodo.getLeft() == null && nodo.getRight() == null) {
+         if (nodo.getLeft() == null && nodo.getRight() == null) {
                 return null;
                 //Si el nodo a borrar tiene hijo derecho
             } else if (nodo.getLeft() == null) {
@@ -314,7 +314,6 @@ public class avlArchivo {
                 nodo.setPropietario(aux.getPropietario());
                 nodo.setLeft(eliminar(nodo.getLeft(), aux.getNombre()));
             }
-        }
 
         nodo.setAltura(Math.max(altura(nodo.getLeft()), altura(nodo.getRight())) + 1);
 
@@ -397,8 +396,8 @@ public class avlArchivo {
         }
     }
 
-    private String contenidoArchivo(String archivo) {
-        String contenido = "";
+    private String timeStampArchivo(String archivo) {
+        String contenido;
 
         nodoArchivo aux = this.raiz;
 
@@ -410,10 +409,31 @@ public class avlArchivo {
             } else if (archivo.compareTo(aux.getNombre()) > 0) {
                 aux = aux.getRight();
                 //Si el nombre es igual al nodo evaluado actualizar contenido
-            } else {
-                contenido = aux.getContenido();
             }
         }
+
+        contenido = aux.getTimeStamp();
+
+        return contenido;
+    }
+
+    private String contenidoArchivo(String archivo) {
+        String contenido;
+
+        nodoArchivo aux = this.raiz;
+
+        while (!aux.getNombre().equals(archivo)) {
+            //Si el nombre es menor al nodo evaluado ir izquierda
+            if (archivo.compareTo(aux.getNombre()) < 0) {
+                aux = aux.getLeft();
+                //Si el nombre es mayor al nodo evaluado ir derecha
+            } else if (archivo.compareTo(aux.getNombre()) > 0) {
+                aux = aux.getRight();
+                //Si el nombre es igual al nodo evaluado actualizar contenido
+            }
+        }
+
+        contenido = aux.getContenido();
 
         return contenido;
     }
@@ -473,24 +493,21 @@ public class avlArchivo {
                     }
                 });
                 //Funcion de compartir archivo
-                compartir.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        //Separar el nombre del archivo
-                        String name = botonCarpeta.getText();
-                        String[] datos = name.split("\\.", 2);
-                        //JOptionPane para seleccionar usuario destino      
-                        try {
-                            String[] mostrarUsuarios = SoftwareEDDDriver.usuarios.usuariosCbo(SoftwareEDDDriver.userLog);
-                            String destino = (String) JOptionPane.showInputDialog(null, "Selecciona un usuario.", "Usuario destino.", JOptionPane.QUESTION_MESSAGE, null, mostrarUsuarios, mostrarUsuarios[0]);
-                            if (!destino.equals("null")) {
-                                SoftwareEDDDriver.usuarios.insertarArchivo(datos[0], datos[1], "", "raiz", destino);
-                                JOptionPane.showMessageDialog(null, "Archivo enviado con exito.", "Se ha enviado el archivo.", JOptionPane.INFORMATION_MESSAGE);
-                                SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Compartio el archivo "+name+" con " +destino+".");
-                            }
-                        } catch (Exception error) {
-                            JOptionPane.showMessageDialog(null, "No hay usuarios para compartir en el sistema.", "No hay usuarios.", JOptionPane.WARNING_MESSAGE);
+                compartir.addActionListener((ActionEvent e) -> {
+                    //Separar el nombre del archivo
+                    String name = botonCarpeta.getText();
+                    String[] datos = name.split("\\.", 2);
+                    //JOptionPane para seleccionar usuario destino
+                    try {
+                        String[] mostrarUsuarios = SoftwareEDDDriver.usuarios.usuariosCbo(SoftwareEDDDriver.userLog);
+                        String destino = (String) JOptionPane.showInputDialog(null, "Selecciona un usuario.", "Usuario destino.", JOptionPane.QUESTION_MESSAGE, null, mostrarUsuarios, mostrarUsuarios[0]);
+                        if (!destino.equals("null")) {
+                            SoftwareEDDDriver.usuarios.insertarArchivo(datos[0], datos[1], contenidoArchivo(datos[0]), "raiz", destino);
+                            JOptionPane.showMessageDialog(null, "Archivo enviado con exito.", "Se ha enviado el archivo.", JOptionPane.INFORMATION_MESSAGE);
+                            SoftwareEDDDriver.bitacora.push(SoftwareEDDDriver.userLog, "Compartio el archivo " + name + " con " + destino + ".");
                         }
-
+                    } catch (Exception error) {
+                        JOptionPane.showMessageDialog(null, "No hay usuarios para compartir en el sistema.", "No hay usuarios.", JOptionPane.WARNING_MESSAGE);
                     }
                 });
                 //Añadir click listener al boton
@@ -505,6 +522,20 @@ public class avlArchivo {
                 botonCarpeta.add(menuPop);
                 //ActionListener del boton
                 ActionListener listen = (ActionEvent e) -> {
+                    SoftwareEDDDriver.fileLog = botonCarpeta.getText();
+                    createFileWindow modificar = new createFileWindow();
+                    modificar.btnCrear.setVisible(false);
+                    modificar.btnModificar.setVisible(true);
+                    modificar.lblTitulo.setText("Modificar Archivo");
+                    modificar.txtNombre.setEditable(false);
+                    modificar.txtNombre.setText(botonCarpeta.getText());
+                    //Obtener nombre en split
+                    String name = botonCarpeta.getText();
+                    String[] datos = name.split("\\.", 2);
+                    //Set valores obtenidos
+                    modificar.txtContenido.setText(contenidoArchivo(datos[0]));
+                    modificar.lblTimeStamp.setText(timeStampArchivo(datos[0]));
+                    modificar.setVisible(true);
                 };
                 botonCarpeta.addActionListener(listen);
 
@@ -513,7 +544,7 @@ public class avlArchivo {
                 //Siguiente archivo            
                 panel.repaint();
 
-                if (conteo < 4) {
+                if (conteo < 5) {
                     x += 90;
                 } else {
                     y += 80;

@@ -277,8 +277,13 @@ public class initialWindow extends javax.swing.JFrame {
     private void btnCrearArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearArchivoActionPerformed
         createFileWindow creadorArchivo = new createFileWindow();
         creadorArchivo.setVisible(true);
+        creadorArchivo.btnCrear.setVisible(true);
+        creadorArchivo.btnModificar.setVisible(false);
+        creadorArchivo.lblTitulo.setText("Crear Archivo");        
+        SoftwareEDDDriver.panel = this.panelVisual;
+        creadorArchivo.place_holders();
         
-        this.setVisible(false);
+//        this.setVisible(false);
     }//GEN-LAST:event_btnCrearArchivoActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed

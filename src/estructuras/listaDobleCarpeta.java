@@ -8,10 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
@@ -103,12 +106,12 @@ public class listaDobleCarpeta {
         //Crear icono de la carpeta        
         ImageIcon folder = new ImageIcon(getClass().getResource("/imagenes/folder.png"));
         SoftwareEDDDriver.prevFolder = aux.getCarpetaPrev();
-        
+
         //Cargar todas las carpetas al panel
         nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();
 
-        while (temp != null) {            
-            
+        while (temp != null) {
+
             //Crear el boton
             JButton botonCarpeta = new JButton();
             botonCarpeta.setBounds(x, y, 80, 70);
@@ -163,11 +166,11 @@ public class listaDobleCarpeta {
             //Siguiente carpeta            
             conteo++;
             temp = temp.getNext();
-        }       
+        }
 
         //Crear icono para el archivo
         ImageIcon file = new ImageIcon(getClass().getResource("/imagenes/file.png"));
-        
+
         //Cargar todos los archivos al panel
         aux.getArchivos().crearBotones(panel, x, y, conteo, file);
 
@@ -185,8 +188,6 @@ public class listaDobleCarpeta {
         aux.getArchivos().insertar(nombreArchivo, extension, contenido);
 
     }
-    
-    
 
     public void arbolArchivo(String nombreCarpeta) throws IOException {
         nodoCarpeta aux = this.inicio;
@@ -197,6 +198,44 @@ public class listaDobleCarpeta {
 
         aux.getArchivos().graficar();
 
+    }
+
+    private void crearImagen(String dirDot, String dirPng) {
+        try {
+            ProcessBuilder pbuild = new ProcessBuilder("dot", "-Tpng", "-o", dirPng, dirDot);
+            pbuild.redirectErrorStream(true);
+            pbuild.start();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al crear el reporte de bitácora." + e, "Error con la bitácora.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void graficarLista() throws IOException {
+        if (this.listaVacia() == false) {
+            String ruta = System.getProperty("user.home");
+            ruta += "\\Desktop\\Reports";
+            File carpeta = new File(ruta);
+
+            if (!carpeta.exists()) {
+                if (!carpeta.mkdirs()) {
+                    JOptionPane.showMessageDialog(null, "Error al crear la carpeta de Reportes.", "Error con Carpeta.", JOptionPane.ERROR_MESSAGE);                    
+                    return;
+                }
+            }
+            
+            String rutaDot = ruta + "\\ListaCarpetas.dot";
+            File archivo = new File(rutaDot);
+            
+            if(!archivo.exists()){
+                archivo.createNewFile();
+            }
+            
+            try (PrintWriter write = new PrintWriter(rutaDot, "UTF-8")){
+                write.println("digraph listaCarpeta {");
+                write.println("label=\"Lista Simple de Carpetas\";");
+                
+            }
+        }
     }
 
 }

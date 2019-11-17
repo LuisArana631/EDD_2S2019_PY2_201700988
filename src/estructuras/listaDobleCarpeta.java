@@ -78,8 +78,14 @@ public class listaDobleCarpeta {
                         this.inicio = this.inicio.getNext();
                         this.inicio.setPrevious(null);
                     } else {
-                        prev.setNext(now.getNext());
-                        now.getNext().setPrevious(now.getPrevious());
+                        if (now != this.fin) {
+                            prev.setNext(now.getNext());
+                            now.getNext().setPrevious(now.getPrevious());
+                        } else {
+                            prev.setNext(null);
+                            this.fin = prev;
+                        }
+
                     }
                 }
 
@@ -133,6 +139,14 @@ public class listaDobleCarpeta {
             JMenuItem eliminar = new JMenuItem("Eliminar");
             menuPop.add(modificar);
             menuPop.add(eliminar);
+            //Funcion eliminar
+            eliminar.addActionListener((ActionEvent e) -> {
+                String carpeta = botonCarpeta.getText();
+                SoftwareEDDDriver.usuarios.eliminarCarpeta(SoftwareEDDDriver.userLog, carpeta);
+                SoftwareEDDDriver.panel.removeAll();
+                SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, SoftwareEDDDriver.panel);
+                SoftwareEDDDriver.panel.repaint();
+            });
             //Añadir click listener al boton
             botonCarpeta.addMouseListener(new MouseAdapter() {
                 @Override
@@ -231,7 +245,7 @@ public class listaDobleCarpeta {
                 archivo.createNewFile();
             }
 
-            try (PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
                 write.println("digraph grafoCarpeta {");
                 write.println("label = \"Grafo de Carpetas\";");
                 write.println("rankdir=LR;");
@@ -265,7 +279,7 @@ public class listaDobleCarpeta {
             }
 
             //Escribir el código html dentro del archivo
-            try (PrintWriter write = new PrintWriter(html, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(html, "UTF-8")) {
                 write.println("<html>");
                 write.println("<head>");
                 write.println("<title> Reporte Grafo</title>");
@@ -286,7 +300,7 @@ public class listaDobleCarpeta {
             }
 
             visorHtml.setVisible(true);
-            
+
         }
     }
 
@@ -322,7 +336,7 @@ public class listaDobleCarpeta {
                 archivo.createNewFile();
             }
 
-            try (PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
                 write.println("digraph matrizCarpeta {");
                 write.println("label=\"Matriz de Adyacencia\"");
                 write.println("node [shape=record];");
@@ -431,7 +445,7 @@ public class listaDobleCarpeta {
             }
 
             //Escribir el código html dentro del archivo
-            try (PrintWriter write = new PrintWriter(html, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(html, "UTF-8")) {
                 write.println("<html>");
                 write.println("<head>");
                 write.println("<title> Reporte Matriz Adyacencia de Carpetas</title>");
@@ -447,7 +461,7 @@ public class listaDobleCarpeta {
             try {
                 visorHtml.edPaneWeb.setPage(reportHtml.toURI().toURL());
                 visorHtml.lblNombre.setText("Reporte de Carpetas en forma de Matriz de Adyacencia");
-            } catch (Exception e) {
+            } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de carpetas." + e, "Error con las carpetas.", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -476,7 +490,7 @@ public class listaDobleCarpeta {
                 archivo.createNewFile();
             }
 
-            try (PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
                 write.println("digraph listaCarpeta {");
                 write.println("label=\"Lista Simple de Carpetas\";");
                 write.println("rankdir= LR;");
@@ -508,7 +522,7 @@ public class listaDobleCarpeta {
             }
 
             //Escribir el código html dentro del archivo
-            try (PrintWriter write = new PrintWriter(html, "UTF-8")) {
+            try ( PrintWriter write = new PrintWriter(html, "UTF-8")) {
                 write.println("<html>");
                 write.println("<head>");
                 write.println("<title> Reporte Lista Simple</title>");
@@ -524,13 +538,50 @@ public class listaDobleCarpeta {
             try {
                 visorHtml.edPaneWeb.setPage(reportHtml.toURI().toURL());
                 visorHtml.lblNombre.setText("Reporte de Carpetas en forma de Lista Simple");
-            } catch (Exception e) {
+            } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error al crear el reporte de carpetas." + e, "Error con las carpetas.", JOptionPane.ERROR_MESSAGE);
             }
 
             visorHtml.setVisible(true);
 
         }
+    }
+
+    public void eliminarCarpeta(String carpeta) {
+        nodoCarpeta aux = this.inicio;
+
+        //Eliminar Carpetas Interiores
+        while (aux != null) {
+            String carp = aux.getNombreCarpeta();
+
+            if (carpeta.equals(aux.getCarpetaPrev())) {
+                eliminar(carp);
+            }
+
+            aux = aux.getNext();
+        }
+
+        //Eliminar Carpeta
+        String carpetaPrev = "";
+        aux = this.inicio;
+        while (aux != null) {
+            if (carpeta.equals(aux.getNombreCarpeta())) {
+                carpetaPrev = aux.getCarpetaPrev();
+                eliminar(carpeta);
+            }
+
+            aux = aux.getNext();
+        }
+
+        //Eliminar Referencias
+        aux = this.inicio;
+        while (aux != null) {
+            if (carpetaPrev.equals(aux.getNombreCarpeta())) {
+                aux.getCarpetas().eliminar(carpeta);
+            }
+            aux = aux.getNext();
+        }
+
     }
 
 }

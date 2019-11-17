@@ -234,6 +234,7 @@ public class administradorWindow extends javax.swing.JFrame {
         initial.lblUser.setText(SoftwareEDDDriver.userLog);
         SoftwareEDDDriver.usuarios.mostrarContenido(SoftwareEDDDriver.userLog, SoftwareEDDDriver.folderLog, initial.panelVisual);
         initial.setVisible(true);
+        SoftwareEDDDriver.panel = initial.panelVisual;
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresar3ActionPerformed
 

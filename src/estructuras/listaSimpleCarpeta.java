@@ -63,7 +63,10 @@ public class listaSimpleCarpeta {
         nodoSimpleCarpeta aux = this.inicio;
         nodoSimpleCarpeta aux2 = null;
 
-        while (!nombre.equals(aux.getNombre())) {
+        while (aux != null) {
+            if (nombre.equals(aux.getNombre())) {
+                break;
+            }
             aux2 = aux;
             aux = aux.getNext();
         }
@@ -73,11 +76,11 @@ public class listaSimpleCarpeta {
         } else if (aux == this.fin) {
             this.fin = aux2;
             aux2.setNext(null);
-        }else{
+        } else {
             aux2.setNext(aux.getNext());
-        }        
+        }
         aux.setNext(null);
-        
+
         this.longitud--;
     }
 

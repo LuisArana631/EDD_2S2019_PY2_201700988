@@ -26,7 +26,7 @@ public class viewWindow extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cloudEDDRed.png"))); // NOI18N
-        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 780, 140, 60));
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 630, 140, 60));
 
         btnRegresar.setBackground(new java.awt.Color(56, 150, 201));
         btnRegresar.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
@@ -44,12 +44,15 @@ public class viewWindow extends javax.swing.JFrame {
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 700, 40));
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(2147483647, 2147483647));
+
+        edPaneWeb.setPreferredSize(new java.awt.Dimension(2147483647, 2147483647));
         jScrollPane1.setViewportView(edPaneWeb);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1100, 690));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1100, 540));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/initial.jpg"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1100, 890));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1100, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -201,6 +201,7 @@ public class reportesWindow extends javax.swing.JFrame {
         inicial.setVisible(true);
         inicial.lblUser.setText(SoftwareEDDDriver.userLog);
         this.setVisible(false);
+        SoftwareEDDDriver.panel = inicial.panelVisual;
     }
 
     /**

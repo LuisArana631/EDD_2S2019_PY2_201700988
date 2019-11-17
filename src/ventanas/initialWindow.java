@@ -120,7 +120,7 @@ public class initialWindow extends javax.swing.JFrame {
         panelVisual.setBackground(new java.awt.Color(255, 255, 255));
         panelVisual.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.lightGray), "Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI Light", 1, 12))); // NOI18N
         panelVisual.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        panelVisual.setPreferredSize(new java.awt.Dimension(430, 1500));
+        panelVisual.setPreferredSize(new java.awt.Dimension(430, 3000));
 
         javax.swing.GroupLayout panelVisualLayout = new javax.swing.GroupLayout(panelVisual);
         panelVisual.setLayout(panelVisualLayout);
@@ -130,7 +130,7 @@ public class initialWindow extends javax.swing.JFrame {
         );
         panelVisualLayout.setVerticalGroup(
             panelVisualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1475, Short.MAX_VALUE)
+            .addGap(0, 2975, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(panelVisual);

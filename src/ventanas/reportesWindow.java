@@ -21,7 +21,7 @@ public class reportesWindow extends javax.swing.JFrame {
      */
     public reportesWindow() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
     }
 
@@ -155,27 +155,34 @@ public class reportesWindow extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(reportesWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnReportArchivosActionPerformed
 
     private void btnReportListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportListaActionPerformed
-        
+        try {
+            SoftwareEDDDriver.usuarios.listaCarpetas(SoftwareEDDDriver.userLog);
+        } catch (IOException ex) {
+            Logger.getLogger(reportesWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnReportListaActionPerformed
 
     private void btnReportGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportGrafoActionPerformed
-        
+
     }//GEN-LAST:event_btnReportGrafoActionPerformed
 
     private void btnReportMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportMatrizActionPerformed
-       
+        try {
+            SoftwareEDDDriver.usuarios.matrizCarpetas(SoftwareEDDDriver.userLog);
+        } catch (IOException ex) {
+            Logger.getLogger(reportesWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnReportMatrizActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        cambiarVentana();        
+        cambiarVentana();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    
-    private void cambiarVentana(){
+    private void cambiarVentana() {
         initialWindow inicial = new initialWindow();
 
         //Verificar el tipo de usuario que ingreso
@@ -191,6 +198,7 @@ public class reportesWindow extends javax.swing.JFrame {
         inicial.lblUser.setText(SoftwareEDDDriver.userLog);
         this.setVisible(false);
     }
+
     /**
      * @param args the command line arguments
      */

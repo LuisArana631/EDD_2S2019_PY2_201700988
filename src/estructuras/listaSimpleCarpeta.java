@@ -3,11 +3,21 @@ package estructuras;
 public class listaSimpleCarpeta {
 
     private nodoSimpleCarpeta inicio;
+    private nodoSimpleCarpeta fin;
 
     public listaSimpleCarpeta() {
         this.inicio = null;
+        this.fin = null;
     }
 
+    public nodoSimpleCarpeta getFin() {
+        return fin;
+    }
+
+    public void setFin(nodoSimpleCarpeta fin) {
+        this.fin = fin;
+    }
+        
     public nodoSimpleCarpeta getInicio() {
         return inicio;
     }
@@ -23,9 +33,11 @@ public class listaSimpleCarpeta {
     public void insertar(String nombre) {
         nodoSimpleCarpeta nuevo = new nodoSimpleCarpeta(nombre);
         if (!listaVacia()) {
-            nuevo.setNext(this.inicio);
+            this.fin.setNext(nuevo);
+        }else{
+            this.inicio = nuevo;            
         }
-        this.inicio = nuevo;
+        this.fin = nuevo;
 
     }
     

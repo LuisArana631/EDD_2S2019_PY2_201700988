@@ -42,7 +42,7 @@ public class viewWindow extends javax.swing.JFrame {
 
         lblNombre.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 490, 40));
+        getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 700, 40));
 
         jScrollPane1.setViewportView(edPaneWeb);
 

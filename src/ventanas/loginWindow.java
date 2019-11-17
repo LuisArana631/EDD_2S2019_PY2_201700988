@@ -130,6 +130,7 @@ public class loginWindow extends javax.swing.JFrame {
                 SoftwareEDDDriver.userLog = usuario;
                 SoftwareEDDDriver.folderLog = "raiz";
                 initialWindow inicial = new initialWindow();
+                SoftwareEDDDriver.panel = inicial.panelVisual;
 
                 //Verificar el tipo de usuario que ingreso
                 if (usuario.equals("ADMIN")) {

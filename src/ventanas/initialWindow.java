@@ -337,11 +337,11 @@ public class initialWindow extends javax.swing.JFrame {
                                     nombre += letra;
                                 }
                             } else if (exten == true) {
-                                //Llena la extension si no hay comas o comillas
-                                if (letra == 59 || letra == 24) {
+                                //Llena la extension si no hay comas o punto y coma
+                                if (letra == 59 || letra == 44) {
                                     cont = true;
                                     exten = false;
-                                } else if (Character.isLetter(letra)) {
+                                } else if (Character.isLetter(letra) || Character.isDigit(letra)) {
                                     extension += letra;
                                 }
                             } else if (cont == true) {
@@ -369,6 +369,7 @@ public class initialWindow extends javax.swing.JFrame {
                     extension = "";
                     contenido = "";
                     archivo = true;
+                    cont = false;
 
                 }
 

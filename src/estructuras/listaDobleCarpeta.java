@@ -211,6 +211,97 @@ public class listaDobleCarpeta {
         }
     }
 
+    public void graficarGrafo() throws IOException {
+        if (!this.listaVacia()) {
+            String ruta = System.getProperty("user.home");
+            ruta += "\\Desktop\\Reports";
+            File carpeta = new File(ruta);
+
+            if (!carpeta.exists()) {
+                if (!carpeta.mkdirs()) {
+                    JOptionPane.showMessageDialog(null, "Error al crear la carpeta de Reportes.", "Error con Carpeta.", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            String rutaDot = ruta + "\\GrafoCarpetas.dot";
+            File archivo = new File(rutaDot);
+
+            if (!archivo.exists()) {
+                archivo.createNewFile();
+            }
+
+            try (PrintWriter write = new PrintWriter(rutaDot, "UTF-8")) {
+                write.println("digraph grafoCarpeta {");
+                write.println("label = \"Grafo de Carpetas\";");
+                write.println("rankdir=LR;");
+                //Escribir el grafo
+                nodoCarpeta aux = this.inicio;
+                while (aux != null) {
+                    nodoSimpleCarpeta temp = aux.getCarpetas().getInicio();
+
+                    while (temp != null) {
+                        write.println("\"" + aux.getNombreCarpeta() + " \\n No. Carpetas: " + aux.getCarpetas().getLongitud() + "\" -> \"" + temp.getNombre() + " \\n No. Carpetas: " + getNumCarpetas(temp.getNombre()) + "\";");
+                        temp = temp.getNext();
+                    }
+
+                    aux = aux.getNext();
+                }
+
+                write.println("}");
+                write.close();
+            }
+
+            String rutaPng = ruta + "\\GrafoCarpetas.png";
+            crearImagen(rutaDot, rutaPng);
+
+            //Crear el archivo html para abrirla desde el buscador
+            String html = ruta + "\\GrafoCarpetas.html";
+            File reportHtml = new File(html);
+
+            //Verificar que exista el archivo
+            if (!reportHtml.exists()) {
+                reportHtml.createNewFile();
+            }
+
+            //Escribir el código html dentro del archivo
+            try (PrintWriter write = new PrintWriter(html, "UTF-8")) {
+                write.println("<html>");
+                write.println("<head>");
+                write.println("<title> Reporte Grafo</title>");
+                write.println("</head>");
+                write.println("<body>");
+                write.println("<img src=\"GrafoCarpetas.png\">");
+                write.println("</body>");
+                write.println("</html>");
+            }
+
+            //Abrir visor Web con la página creada del reporte
+            viewWindow visorHtml = new viewWindow();
+            try {
+                visorHtml.edPaneWeb.setPage(reportHtml.toURI().toURL());
+                visorHtml.lblNombre.setText("Reporte de Carpetas en forma de Grafo");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al crear el reporte de carpetas." + e, "Error con las carpetas.", JOptionPane.ERROR_MESSAGE);
+            }
+
+            visorHtml.setVisible(true);
+            
+        }
+    }
+
+    private int getNumCarpetas(String carpeta) {
+        nodoCarpeta aux = this.inicio;
+
+        while (!carpeta.equals(aux.getNombreCarpeta())) {
+            aux = aux.getNext();
+        }
+
+        int num = aux.getCarpetas().getLongitud();
+
+        return num;
+    }
+
     public void graficarMatriz() throws IOException {
         if (this.listaVacia() == false) {
             String ruta = System.getProperty("user.home");
@@ -236,7 +327,7 @@ public class listaDobleCarpeta {
                 write.println("label=\"Matriz de Adyacencia\"");
                 write.println("node [shape=record];");
                 write.println("nodoInicio[label=\"Inicio\" group=\"Inicio\"];");
-                
+
                 //-----Crear cabecera-----
                 System.out.println("---Creando cabecera---");
                 //Crear nodos
@@ -262,12 +353,12 @@ public class listaDobleCarpeta {
                 write.println("nodoInicio -> \"nodoC" + aux.getNombreCarpeta() + "\"");
                 while (aux != null) {
                     if (aux.getNext() != null) {
-                        write.println("\"nodoC" + aux.getNombreCarpeta() + "\" -> \"nodoC" + aux.getNext().getNombreCarpeta() + "\";");                        
+                        write.println("\"nodoC" + aux.getNombreCarpeta() + "\" -> \"nodoC" + aux.getNext().getNombreCarpeta() + "\";");
                     }
                     aux = aux.getNext();
                 }
                 System.out.println("nodos conectados");
-                
+
                 //-----Crear lateral-----
                 System.out.println("---Creando lateral---");
                 //Crear nodos
@@ -282,14 +373,14 @@ public class listaDobleCarpeta {
                 write.println("nodoInicio -> \"nodoL" + aux.getNombreCarpeta() + "\"");
                 while (aux != null) {
                     if (aux.getNext() != null) {
-                        write.println("\"nodoL" + aux.getNombreCarpeta() + "\" -> \"nodoL" + aux.getNext().getNombreCarpeta() + "\";");                        
+                        write.println("\"nodoL" + aux.getNombreCarpeta() + "\" -> \"nodoL" + aux.getNext().getNombreCarpeta() + "\";");
                     }
                     aux = aux.getNext();
                 }
                 System.out.println("nodos conectados");
-                
+
                 //-----Crear nodos interiores-----
-                System.out.println("---Creando nodos interiores");                
+                System.out.println("---Creando nodos interiores");
                 //Nodo y conexion
                 aux = this.inicio;
                 while (aux != null) {
@@ -313,14 +404,14 @@ public class listaDobleCarpeta {
 
                     //Rank same
                     temp = aux.getCarpetas().getInicio();
-                    write.print("{rank=same \"nodoL"+aux.getNombreCarpeta()+"\"");
+                    write.print("{rank=same \"nodoL" + aux.getNombreCarpeta() + "\"");
                     while (temp != null) {
                         write.print(" \"nodo" + temp.getNombre() + "\" ");
                         temp = temp.getNext();
                     }
                     write.print("};");
                     System.out.println("rank same creado");
-                    
+
                     aux = aux.getNext();
                 }
                 write.println("}\"];}");
@@ -343,7 +434,7 @@ public class listaDobleCarpeta {
             try (PrintWriter write = new PrintWriter(html, "UTF-8")) {
                 write.println("<html>");
                 write.println("<head>");
-                write.println("<title> Reporte Matriz Adyacencia</title>");
+                write.println("<title> Reporte Matriz Adyacencia de Carpetas</title>");
                 write.println("</head>");
                 write.println("<body>");
                 write.println("<img src=\"MatrizCarpetas.png\">");

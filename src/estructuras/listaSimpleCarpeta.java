@@ -4,10 +4,20 @@ public class listaSimpleCarpeta {
 
     private nodoSimpleCarpeta inicio;
     private nodoSimpleCarpeta fin;
+    private int longitud;
 
     public listaSimpleCarpeta() {
         this.inicio = null;
         this.fin = null;
+        this.longitud = 0;
+    }
+
+    public int getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
     }
 
     public nodoSimpleCarpeta getFin() {
@@ -17,7 +27,7 @@ public class listaSimpleCarpeta {
     public void setFin(nodoSimpleCarpeta fin) {
         this.fin = fin;
     }
-        
+
     public nodoSimpleCarpeta getInicio() {
         return inicio;
     }
@@ -34,17 +44,17 @@ public class listaSimpleCarpeta {
         nodoSimpleCarpeta nuevo = new nodoSimpleCarpeta(nombre);
         if (!listaVacia()) {
             this.fin.setNext(nuevo);
-        }else{
-            this.inicio = nuevo;            
+        } else {
+            this.inicio = nuevo;
         }
         this.fin = nuevo;
-
+        this.longitud++;
     }
-    
-    public void mostrarCarpetas(){
+
+    public void mostrarCarpetas() {
         nodoSimpleCarpeta aux = this.inicio;
-        while(aux!=null){
-            System.out.println("Carpeta: "+aux.getNombre());
+        while (aux != null) {
+            System.out.println("Carpeta: " + aux.getNombre());
             aux = aux.getNext();
         }
     }
@@ -58,13 +68,17 @@ public class listaSimpleCarpeta {
             aux = aux.getNext();
         }
 
-        if(aux2==null){
+        if (aux2 == null) {
             this.inicio = this.inicio.getNext();
+        } else if (aux == this.fin) {
+            this.fin = aux2;
+            aux2.setNext(null);
         }else{
             aux2.setNext(aux.getNext());
-            aux.setNext(null);
-        }
+        }        
+        aux.setNext(null);
         
+        this.longitud--;
     }
 
 }

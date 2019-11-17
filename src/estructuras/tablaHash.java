@@ -718,5 +718,54 @@ public class tablaHash {
         }
 
     }
+    
+    public void grafoCarpetas(String user) throws IOException {
+        int userVerificar = codificarUser(user);
+        int intento = 0;
+        int indice = funcionH(userVerificar, intento);
+        int indiceTemp = indice;
+
+        do {
+            if (this.usuarios[indice] != null) {
+                if (this.usuarios[indice].getUserS().equals(user)) {
+                    //Si encontramos al usuario
+                    this.usuarios[indice].getCarpetas().graficarGrafo();
+                    return;
+                } else {
+                    intento++;
+                    indice = funcionH(userVerificar, intento);
+
+                    while (indice >= this.longitud) {
+                        indice = indice - this.longitud;
+                    }
+                }
+            } else {
+                return;
+            }
+        } while (indice != indiceTemp);
+
+        int recorrido = 0;
+
+        if (indice == indiceTemp && intento > 0) {
+
+            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+                indice++;
+                while (indice >= this.longitud) {
+                    indice = indice - this.longitud;
+                }
+                if (recorrido < this.longitud) {
+                    recorrido++;
+                } else {
+                    return;
+                }
+            }
+
+        }
+
+        if (this.usuarios[indice] != null) {
+            this.usuarios[indice].getCarpetas().graficarGrafo();
+        }
+
+    }
 
 }

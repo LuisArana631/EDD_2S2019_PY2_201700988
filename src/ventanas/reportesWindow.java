@@ -167,7 +167,11 @@ public class reportesWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportListaActionPerformed
 
     private void btnReportGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportGrafoActionPerformed
-
+        try {
+            SoftwareEDDDriver.usuarios.grafoCarpetas(SoftwareEDDDriver.userLog);
+        } catch (IOException ex) {
+            Logger.getLogger(reportesWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnReportGrafoActionPerformed
 
     private void btnReportMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportMatrizActionPerformed

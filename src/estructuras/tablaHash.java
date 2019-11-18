@@ -271,49 +271,6 @@ public class tablaHash {
         return codigo;
     }
 
-    public nodoHash getNodoHash(String user) {
-        int userGet = codificarUser(user);
-        int intento = 0;
-        int indice = funcionH(userGet, intento);
-        int indiceTemp = indice;
-
-        do {
-            if (this.usuarios[indice] != null) {
-                if (this.usuarios[indice].getUserS().equals(user)) {
-                    return this.usuarios[indice];
-                } else {
-                    intento++;
-                    indice = funcionH(userGet, intento);
-
-                    while (indice >= this.longitud) {
-                        indice = indice - this.longitud;
-                    }
-                }
-            } else {
-                return null;
-            }
-        } while (indice != indiceTemp);
-
-        int recorrido = 0;
-
-        if (indice == indiceTemp && intento > 0) {
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
-                indice++;
-                while (indice >= this.longitud) {
-                    indice = indice - this.longitud;
-                }
-                if (recorrido < this.longitud) {
-                    recorrido++;
-                } else {
-                    return null;
-                }
-            }
-        }
-
-        return this.usuarios[indice];
-
-    }
-
     public boolean usuarioExiste(String user) {
         int userVerificar = codificarUser(user);
         int intento = 0;
@@ -338,11 +295,18 @@ public class tablaHash {
             }
         } while (indice != indiceTemp);
 
-        int recorrido = 0;
-
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
+            int recorrido = 0;
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        return true;
+                    }
+                }
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -385,10 +349,18 @@ public class tablaHash {
             }
         } while (indiceBuscar != indiceTemp);
 
-        int recorrido = 0;
-
         if (indiceBuscar == indiceTemp && intento > 0) {
-            while (!this.usuarios[indiceBuscar].getUserS().equals(user) && this.usuarios[indiceBuscar] != null) {
+            indiceBuscar = 0;
+            int recorrido = 0;
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indiceBuscar] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indiceBuscar].getUserS().equals(user)) {
+                        return true;
+                    }
+                }
+
                 indiceBuscar++;
                 while (indiceBuscar >= this.longitud) {
                     indiceBuscar = indiceBuscar - this.longitud;
@@ -399,6 +371,7 @@ public class tablaHash {
                     return false;
                 }
             }
+
         }
 
         if (this.usuarios[indiceBuscar] != null) {
@@ -436,8 +409,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().carpetaInterior(nuevaCarpeta, carpetaActual);
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -485,8 +467,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().visualizarCarpeta(panel, carpeta);
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -535,8 +526,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().insertarArchivo(nombreArchivo, extension, contenido, carpeta);
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -600,8 +600,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().arbolArchivo(carpeta);
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -649,8 +658,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().graficarMatriz();
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -698,8 +716,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().graficarLista();
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -747,8 +774,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().graficarGrafo();
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
@@ -796,8 +832,17 @@ public class tablaHash {
         int recorrido = 0;
 
         if (indice == indiceTemp && intento > 0) {
+            indice = 0;
 
-            while (!this.usuarios[indice].getUserS().equals(user) && this.usuarios[indice] != null) {
+            while (recorrido < this.longitud) {
+                if (this.usuarios[indice] == null) {
+                    //No validar
+                } else {
+                    if (this.usuarios[indice].getUserS().equals(user)) {
+                        this.usuarios[indice].getCarpetas().eliminarCarpeta(carpeta);
+                    }
+                }
+
                 indice++;
                 while (indice >= this.longitud) {
                     indice = indice - this.longitud;
